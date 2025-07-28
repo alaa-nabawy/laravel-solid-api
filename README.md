@@ -1,207 +1,279 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
 # Laravel API SOLID
 
-A Laravel-based API project implementing SOLID principles with enhanced CRUD generation capabilities, repository pattern, and service layer architecture.
+<p align="center">
+<a href="https://github.com/laravel/framework"><img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php&logoColor=white" alt="PHP Version"></a>
+<a href="https://laravel.com"><img src="https://img.shields.io/badge/Laravel-12.0+-FF2D20?style=flat&logo=laravel&logoColor=white" alt="Laravel Version"></a>
+<a href="https://www.docker.com"><img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker Ready"></a>
+<a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-2088FF?style=flat&logo=github-actions&logoColor=white" alt="CI"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+</p>
 
-## 🐳 Docker Environment
+## About
 
-This project includes a professional Docker setup with separate development and production environments:
+Enterprise-ready Laravel API boilerplate with SOLID architecture, automated CRUD generation, Passport authentication, Docker containerization, and comprehensive pre-commit quality tools.
 
-- **Development**: Full local stack with PostgreSQL, Redis, MailHog, and development tools
-- **Production**: Optimized containers designed for managed cloud services
+## Table of Contents
 
-### Quick Start with Docker
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Enhanced CRUD Generation](#enhanced-crud-generation)
+- [Code Quality & Pre-commit Hooks](#code-quality--pre-commit-hooks)
+- [Docker Environment](#docker-environment)
+- [Authentication](#authentication)
+- [Documentation](#documentation)
+- [Version History](#version-history)
+
+## Features
+
+**🏗️ SOLID Architecture**
+
+- Repository pattern with service layer separation
+- Dependency injection and interface-based design
+- Clean, maintainable, and testable code structure
+
+**⚡ Enhanced CRUD Generation**
+
+- `make:structure` command with selective generation (`--only`, `--no-resource`)
+- `make:route-group` for organized API endpoints
+- Modern PHP 8.2+ syntax with constructor property promotion
+
+**🔐 Laravel Passport Integration**
+
+- OAuth2 authentication out of the box
+- Automated setup scripts
+- API token management
+
+**🐳 Professional Docker Setup**
+
+- Separate development and production environments
+- PostgreSQL, Redis, MailHog integration
+- Optimized for cloud deployment
+
+**🔧 Comprehensive Code Quality**
+
+- Pre-commit hooks: PHPStan, Pint, PHPUnit, security audit
+- Automated testing with coverage reports
+- Markdown linting and secret detection
+
+**🚀 Workflow Automation**
+
+- Complete Makefile with 30+ commands
+- One-command setup and deployment
+- Integrated development tools
+
+## Quick Start
+
+### Development Setup
 
 ```bash
-# Development environment
-make setup    # Initial setup with all dependencies
-make dev      # Start development environment
-make shell    # Access workspace for Laravel commands
+# Clone and setup
+git clone <repository-url>
+cd laravel-api-solid
 
-# Production environment
-cp .env.prod .env && nano .env  # Configure production settings
-make prod-build                 # Build and deploy production
+# One-command setup (includes Docker, dependencies, migrations, Passport)
+make setup
+
+# Start development environment
+make dev
+
+# Access workspace for Laravel commands
+make shell
 ```
 
-**📖 [Complete Docker Documentation](./docker/README.md)** - Comprehensive setup and usage guide
+Your API will be available at `http://localhost:8000` with MailHog at `http://localhost:8025`.
 
-## 🚀 Enhanced CRUD Generation Commands
+### Production Deployment
 
-This project includes powerful Artisan commands for rapid development with clean architecture patterns.
+```bash
+# Configure environment
+cp .env.prod .env
+nano .env  # Edit production settings
 
-### Quick Overview
+# Deploy
+make prod-build
+```
 
-- **`make:structure`** - Enhanced CRUD structure generator with selective generation
-- **`make:route-group`** - Route group generator with automatic registration
-- **`generate:crud`** - Legacy CRUD generator
+### Essential Commands
 
-### Key Features
+```bash
+# Development
+make dev              # Start development environment
+make shell            # Access workspace container
+make migrate          # Run database migrations
+make test             # Run test suite
+make code-quality     # Run all quality checks
 
-- **🏗️ SOLID Architecture**: Repository pattern with service layer separation
-- **🎯 Selective Generation**: Choose specific CRUD methods to generate
-- **📁 Optional Resources**: Skip resource folder creation when not needed
-- **🔧 Modern PHP**: Constructor property promotion (PHP 8.0+)
-- **📝 Clean Code**: Consistent naming conventions and structure
-- **⚡ Rapid Development**: Generate complete CRUD structures in seconds
+# Code Quality
+make phpstan          # Static analysis
+make code-style       # Fix code formatting
+make test-coverage    # Tests with coverage
+make security-audit   # Security scan
 
-📖 **[Complete Documentation](./docs/general/route-generation.md)** - Detailed guide with examples and advanced usage
+# Passport
+make passport-setup   # Complete Passport setup
+make passport-client  # Create OAuth client
+```
 
-## 🔧 Code Quality & Pre-commit Hooks
+## Enhanced CRUD Generation
 
-This project includes comprehensive code quality tools and automated pre-commit hooks to maintain high code standards:
+Powerful Artisan commands for rapid API development with SOLID architecture.
+
+### Commands
+
+```bash
+# Generate complete CRUD structure
+php artisan make:structure User
+
+# Selective generation (only specific methods)
+php artisan make:structure Post --only=index,show,store
+
+# Skip resource folder creation
+php artisan make:structure Category --no-resource
+
+# Generate organized route groups
+php artisan make:route-group Api/V1/Users
+```
+
+### What Gets Generated
+
+- **Repository & Interface**: Data access layer with contracts
+- **Service Classes**: Business logic separation (Create, Read, Update, Delete)
+- **Controller**: Clean, dependency-injected API controller
+- **Resources**: API response transformers (optional)
+- **Routes**: Organized route groups with automatic registration
+
+**📖 [Complete Documentation](./docs/general/route-generation.md)** - Detailed examples and advanced usage
+
+## Code Quality & Pre-commit Hooks
+
+Comprehensive automated code quality enforcement with pre-commit hooks.
+
+### Tools Included
+
+- **PHPStan**: Static analysis and type checking
+- **Laravel Pint**: Code style formatting
+- **PHPUnit**: Automated testing with coverage
+- **Composer Audit**: Security vulnerability scanning
+- **Secret Detection**: Prevent credential commits
+- **Markdown Linting**: Documentation quality
+
+### Setup
+
+```bash
+# Setup pre-commit hooks (included in make setup)
+make setup-pre-commit
+
+# Manual quality checks
+make full-quality-check  # Complete analysis
+make phpstan            # Static analysis only
+make code-style         # Fix formatting
+make test-coverage      # Tests with coverage
+make security-audit     # Security scan
+```
+
+Pre-commit hooks automatically run on every commit, ensuring consistent code quality across the team.
+
+**📖 [Pre-commit Setup Guide](./docs/general/pre-commit-setup.md)** | **📖 [Code Quality Tools](./docs/general/code-quality-tools.md)**
+
+## Docker Environment
+
+Professional Docker setup with separate development and production configurations.
+
+### Development Stack
+
+- **PostgreSQL**: Primary database
+- **Redis**: Caching and sessions
+- **MailHog**: Email testing
+- **Workspace**: Full development environment with tools
+
+### Production Stack
+
+- **Nginx**: Web server
+- **PHP-FPM**: Optimized PHP processing
+- **PostgreSQL**: Production database
+- **Redis**: Production caching
+
+```bash
+# Development
+make dev              # Start development stack
+make shell            # Access workspace
+make db-shell         # Access PostgreSQL
+
+# Production
+make prod-build       # Build and deploy production
+make prod-logs        # View production logs
+```
+
+**📖 [Complete Docker Documentation](./docker/README.md)**
+
+## Authentication
+
+Laravel Passport OAuth2 implementation with automated setup.
 
 ### Features
 
-- **🎯 Pre-commit Hooks**: Automatic code quality checks before each commit
-- **🔍 Static Analysis**: PHPStan for bug detection and type safety
-- **✨ Code Formatting**: Laravel Pint for consistent code style
-- **🧪 Automated Testing**: PHPUnit integration with coverage reports
-- **🔒 Security Scanning**: Composer audit and secret detection
-- **📝 Documentation**: Markdown linting and formatting
+- OAuth2 server with personal access tokens
+- API authentication middleware
+- Automated client and key generation
+- Production-ready configuration
 
-### Quick Setup
+### Setup
 
 ```bash
-# Complete pre-commit setup
-make setup-pre-commit
+# Automatic setup (included in make setup)
+make passport-setup
 
-# Manual code quality checks
-make code-quality        # Run all quality checks
-make phpstan            # Static analysis
-make code-style         # Fix code formatting
-make test-coverage      # Run tests with coverage
-make security-audit     # Security vulnerability scan
+# Manual setup
+make passport-install
+make passport-keys
+make passport-client
 ```
 
-**📖 [Pre-commit Setup Guide](./docs/general/pre-commit-setup.md)** - Complete setup and usage documentation
-**📖 [Code Quality Tools Guide](./docs/general/code-quality-tools.md)** - Comprehensive documentation for all quality tools
+**📖 [Passport Setup Guide](./docs/general/passport-setup.md)**
 
-## 📚 Documentation
+## Documentation
 
-Comprehensive documentation is available in the `docs/` directory:
+Comprehensive guides available in the `docs/` directory:
 
-- **[Documentation Overview](./docs/README.md)** - Main documentation index
-- **[DevOps Guide](./docs/general/devops.md)** - Docker architecture, deployment, and development operations
-- **[Docker Setup Guide](./docker/README.md)** - Practical Docker usage and commands
-- **[Architecture Guide](./docs/general/architecture.md)** - SOLID principles and project architecture
-- **[Service Repository Pattern](./docs/general/service-repository-pattern.md)** - Detailed implementation guide
-- **[Route Generation Commands](./docs/general/route-generation.md)** - Complete command reference
-- **[Code Quality Tools Guide](./docs/general/code-quality-tools.md)** - Comprehensive code quality scripts and tools documentation
-- **[Pre-commit Setup Guide](./docs/general/pre-commit-setup.md)** - Code quality and pre-commit hooks
+- **[Architecture Guide](./docs/general/architecture.md)** - SOLID principles and project structure
+- **[Service Repository Pattern](./docs/general/service-repository-pattern.md)** - Implementation details
+- **[Route Generation](./docs/general/route-generation.md)** - CRUD command reference
+- **[DevOps Guide](./docs/general/devops.md)** - Docker and deployment
+- **[Code Quality Tools](./docs/general/code-quality-tools.md)** - Quality automation
+- **[Pre-commit Setup](./docs/general/pre-commit-setup.md)** - Hook configuration
+- **[Passport Setup](./docs/general/passport-setup.md)** - OAuth2 authentication
 
-## 📋 Version History
+**📖 [Documentation Index](./docs/README.md)**
 
-### Version 2.1.0 (Latest)
+## Version History
 
-**Release Date:** January 2025
+### v2.1.0 (Current)
 
-#### 🆕 New Features
+_January 2025_
 
-- Added `--no-resource` flag to skip resource folder generation
-- Added `--only` option for selective CRUD method generation
-- Enhanced command descriptions and help text
-- Dynamic output messages showing exactly what was created
+- Enhanced CRUD generation with `--only` and `--no-resource` flags
+- Modern PHP 8.2+ syntax with constructor property promotion
+- Improved command validation and error handling
+- Dynamic output messaging
 
-#### 🔧 Improvements
+### v2.0.0
 
-- Updated service stub templates to use constructor property promotion
-- Improved code organization and maintainability
-- Case-insensitive method matching for `--only` option
-- Better error handling and validation
+_January 2025_
 
-#### 🏗️ Architecture Enhancements
+- Complete `make:structure` command with selective generation
+- Repository pattern with service layer architecture
+- Laravel Passport OAuth2 integration
+- Comprehensive Docker development environment
 
-- Modern PHP 8.0+ syntax adoption
-- Cleaner service class structure
-- Reduced boilerplate code in generated files
-- Enhanced stub template system
+### v1.0.0
 
-### Version 2.0.0
+_January 2025_
 
-**Release Date:** January 2025
+- Initial Laravel API boilerplate
+- Basic CRUD generation foundation
+- User authentication setup
+- Core repository and service structure
 
-#### 🆕 Major Features
+---
 
-- Enhanced `make:structure` command with optional flags
-- Resource folder generation (Admin/Api subfolders)
-- Repository pattern implementation
-- Service layer architecture
-
-#### 🔧 Core Improvements
-
-- CRUD service separation (Create, Read, Update, Delete)
-- Automated directory structure creation
-- Stub-based file generation system
-- Laravel Passport integration
-
-### Version 1.0.0
-
-**Release Date:** January 2025
-
-#### 🎉 Initial Release
-
-- Basic Laravel API setup
-- User authentication with Passport
-- Initial CRUD generation command
-- Repository and service foundation
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**License:** MIT | **PHP:** 8.2+ | **Laravel:** 12.0+
