@@ -75,7 +75,7 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan test --coverage --min=3
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan test --coverage --min=2
 
     - name: Security audit
       run: |

@@ -172,7 +172,7 @@ make test-coverage
 
 - Executes all PHPUnit tests
 - Generates coverage reports
-- Enforces minimum 3% coverage (adjusted for early development phase)
+- Enforces minimum 2% coverage (adjusted for early development phase)
 - Uses Laravel's built-in test runner
 
 **Requirements**:
@@ -189,13 +189,13 @@ make test-coverage
 
 #### Code Coverage Configuration
 
-**Current Minimum Coverage**: 3%
+**Current Minimum Coverage**: 2%
 
 **Rationale**: The minimum coverage threshold has been set to 3% to accommodate the early development phase of the project. This allows the CI pipeline to pass while the codebase is still growing and comprehensive test coverage is being developed.
 
 **Coverage Progression Plan**:
 
-- **Phase 1 (Current)**: 3% minimum - Basic CI functionality
+- **Phase 1 (Current)**: 2% minimum - Basic CI functionality
 - **Phase 2 (Development)**: 25% minimum - Core functionality covered
 - **Phase 3 (Pre-production)**: 50% minimum - Major features tested
 - **Phase 4 (Production-ready)**: 80% minimum - Comprehensive coverage

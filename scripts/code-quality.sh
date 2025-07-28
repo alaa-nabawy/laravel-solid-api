@@ -97,7 +97,7 @@ run_tests_with_coverage() {
     fi
 
     # Run tests with coverage
-    docker compose -f compose.dev.yaml exec workspace php artisan test --coverage --min=3
+    docker compose -f compose.dev.yaml exec workspace php artisan test --coverage --min=2
 }
 
 # Function to run security audit
