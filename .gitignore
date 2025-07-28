@@ -22,3 +22,9 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Pre-commit
+.pre-commit-cache/
+.secrets.baseline
+
+/coverage-html

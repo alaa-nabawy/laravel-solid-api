@@ -25,5 +25,5 @@ class {{model}}Repository extends BaseRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

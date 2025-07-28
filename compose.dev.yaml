@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/common/php-fpm.Dockerfile
+      target: development
+    container_name: laravel-app-dev
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html:cached
+      - ./storage:/var/www/html/storage:delegated
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=laravel_dev
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=secret
+    depends_on:
+      - postgres
+    networks:
+      - laravel-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx-dev
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html:cached
+      - ./docker/dev/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - laravel-network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: laravel-postgres-dev
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: laravel_dev
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/dev/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - laravel-network
+
+  workspace:
+    build:
+      context: .
+      dockerfile: docker/dev/workspace.Dockerfile
+    container_name: laravel-workspace-dev
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html:cached
+      - ./storage:/var/www/html/storage:delegated
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
+      - workspace_composer_cache:/home/sail/.composer
+      - workspace_npm_cache:/home/sail/.npm
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=laravel_dev
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=secret
+    depends_on:
+      - postgres
+    networks:
+      - laravel-network
+    tty: true
+    stdin_open: true
+
+  # Optional: Redis for caching and sessions
+  redis:
+    image: redis:7-alpine
+    container_name: laravel-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - laravel-network
+
+  # Optional: MailHog for email testing
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: laravel-mailhog-dev
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - laravel-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  workspace_composer_cache:
+    driver: local
+  workspace_npm_cache:
+    driver: local
+
+networks:
+  laravel-network:
+    driver: bridge

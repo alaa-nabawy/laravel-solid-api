@@ -24,10 +24,10 @@ class MakeStructure extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
-        $model = $this->argument('model');
-        $noResource = $this->option('no-resource');
+        $model       = $this->argument('model');
+        $noResource  = $this->option('no-resource');
         $onlyMethods = $this->option('only');
 
         // Create the service folder
@@ -40,11 +40,11 @@ class MakeStructure extends Command
 
         // Determine which CRUD methods to create
         $allCrudMethods = ['Create', 'Read', 'Update', 'Delete'];
-        $crudMethods = $allCrudMethods;
-        
+        $crudMethods    = $allCrudMethods;
+
         if ($onlyMethods) {
             $requestedMethods = array_map('trim', explode(',', $onlyMethods));
-            $crudMethods = array_filter($allCrudMethods, function($method) use ($requestedMethods) {
+            $crudMethods      = array_filter($allCrudMethods, function ($method) use ($requestedMethods) {
                 return in_array(strtolower($method), array_map('strtolower', $requestedMethods));
             });
         }
@@ -56,33 +56,33 @@ class MakeStructure extends Command
         }
 
         $createdItems = ['Repository', 'Service files'];
-        
+
         // Create Resource folders: Admin and Api (unless --no-resource flag is used)
-        if (!$noResource) {
+        if (! $noResource) {
             $resourceBasePath = app_path("Http/Resources/{$model}");
-            $adminPath = "{$resourceBasePath}/Admin";
-            $apiPath   = "{$resourceBasePath}/Api";
+            $adminPath        = "{$resourceBasePath}/Admin";
+            $apiPath          = "{$resourceBasePath}/Api";
 
             File::makeDirectory($adminPath, 0755, true, true);
             File::makeDirectory($apiPath, 0755, true, true);
-            
+
             $createdItems[] = 'Resource folders (Admin, Api)';
         }
 
         $methodsList = implode(', ', array_map('strtolower', $crudMethods));
-        $itemsList = implode(', ', $createdItems);
-        
+        $itemsList   = implode(', ', $createdItems);
+
         $this->info("{$itemsList} created for {$model} with methods: {$methodsList}.");
     }
 
-    protected function getStubContent($type, $model, $method = '')
+    protected function getStubContent(string $type, string $model, string $method = ''): string
     {
         $stubPath = base_path("stubs/{$type}.stub");
-        $content = File::get($stubPath);
+        $content  = File::get($stubPath);
 
         // Replace placeholders with actual content
         $content = str_replace('{{model}}', $model, $content);
-        $content = str_replace('{{className}}', $model.$method, $content);
+        $content = str_replace('{{className}}', $model . $method, $content);
         $content = str_replace('{{method}}', $method, $content);
         $content = str_replace('{{lowerMethod}}', strtolower($method), $content);
         $content = str_replace('{{lowerModel}}', strtolower($model), $content);
@@ -90,11 +90,11 @@ class MakeStructure extends Command
         return $content;
     }
 
-    protected function generateService(String $service, String $repository):void
+    protected function generateService(string $service, string $repository): void
     {
         $servicePath = app_path('Services/' . $service . '.php');
 
-        if (!file_exists($servicePath)) {
+        if (! file_exists($servicePath)) {
             $serviceTemplate = str_replace(
                 ['{{ServiceName}}', '{{RepositoryName}}', '{{repositoryName}}'],
                 [$service, $repository, lcfirst($repository)],
@@ -107,12 +107,12 @@ class MakeStructure extends Command
         $this->info('Service files generated.');
     }
 
-    protected function generateRepository(string $repository, string $mainModel):void
+    protected function generateRepository(string $repository, string $mainModel): void
     {
-        $stubPath = base_path('stubs/repository.stub');
+        $stubPath       = base_path('stubs/repository.stub');
         $repositoryPath = app_path('Repositories/' . $repository . '.php');
 
-        if (!file_exists($repositoryPath)) {
+        if (! file_exists($repositoryPath)) {
             $repositoryTemplate = str_replace(
                 ['{{RepositoryName}}', '{{MainModelClass}}'],
                 [$repository, $mainModel],

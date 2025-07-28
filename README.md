@@ -11,6 +11,28 @@
 
 A Laravel-based API project implementing SOLID principles with enhanced CRUD generation capabilities, repository pattern, and service layer architecture.
 
+## 🐳 Docker Environment
+
+This project includes a professional Docker setup with separate development and production environments:
+
+- **Development**: Full local stack with PostgreSQL, Redis, MailHog, and development tools
+- **Production**: Optimized containers designed for managed cloud services
+
+### Quick Start with Docker
+
+```bash
+# Development environment
+make setup    # Initial setup with all dependencies
+make dev      # Start development environment
+make shell    # Access workspace for Laravel commands
+
+# Production environment
+cp .env.prod .env && nano .env  # Configure production settings
+make prod-build                 # Build and deploy production
+```
+
+**📖 [Complete Docker Documentation](./docker/README.md)** - Comprehensive setup and usage guide
+
 ## 🚀 Enhanced CRUD Generation Commands
 
 This project includes powerful Artisan commands for rapid development with clean architecture patterns.
@@ -32,58 +54,100 @@ This project includes powerful Artisan commands for rapid development with clean
 
 📖 **[Complete Documentation](./docs/general/route-generation.md)** - Detailed guide with examples and advanced usage
 
+## 🔧 Code Quality & Pre-commit Hooks
+
+This project includes comprehensive code quality tools and automated pre-commit hooks to maintain high code standards:
+
+### Features
+
+- **🎯 Pre-commit Hooks**: Automatic code quality checks before each commit
+- **🔍 Static Analysis**: PHPStan for bug detection and type safety
+- **✨ Code Formatting**: Laravel Pint for consistent code style
+- **🧪 Automated Testing**: PHPUnit integration with coverage reports
+- **🔒 Security Scanning**: Composer audit and secret detection
+- **📝 Documentation**: Markdown linting and formatting
+
+### Quick Setup
+
+```bash
+# Complete pre-commit setup
+make setup-pre-commit
+
+# Manual code quality checks
+make code-quality        # Run all quality checks
+make phpstan            # Static analysis
+make code-style         # Fix code formatting
+make test-coverage      # Run tests with coverage
+make security-audit     # Security vulnerability scan
+```
+
+**📖 [Pre-commit Setup Guide](./docs/general/pre-commit-setup.md)** - Complete setup and usage documentation
+**📖 [Code Quality Tools Guide](./docs/general/code-quality-tools.md)** - Comprehensive documentation for all quality tools
+
 ## 📚 Documentation
 
 Comprehensive documentation is available in the `docs/` directory:
 
 - **[Documentation Overview](./docs/README.md)** - Main documentation index
+- **[DevOps Guide](./docs/general/devops.md)** - Docker architecture, deployment, and development operations
+- **[Docker Setup Guide](./docker/README.md)** - Practical Docker usage and commands
 - **[Architecture Guide](./docs/general/architecture.md)** - SOLID principles and project architecture
 - **[Service Repository Pattern](./docs/general/service-repository-pattern.md)** - Detailed implementation guide
 - **[Route Generation Commands](./docs/general/route-generation.md)** - Complete command reference
-- **[DevOps Guide](./docs/general/devops.md)** - Development operations and deployment
+- **[Code Quality Tools Guide](./docs/general/code-quality-tools.md)** - Comprehensive code quality scripts and tools documentation
+- **[Pre-commit Setup Guide](./docs/general/pre-commit-setup.md)** - Code quality and pre-commit hooks
 
 ## 📋 Version History
 
 ### Version 2.1.0 (Latest)
+
 **Release Date:** January 2025
 
 #### 🆕 New Features
+
 - Added `--no-resource` flag to skip resource folder generation
 - Added `--only` option for selective CRUD method generation
 - Enhanced command descriptions and help text
 - Dynamic output messages showing exactly what was created
 
 #### 🔧 Improvements
+
 - Updated service stub templates to use constructor property promotion
 - Improved code organization and maintainability
 - Case-insensitive method matching for `--only` option
 - Better error handling and validation
 
 #### 🏗️ Architecture Enhancements
+
 - Modern PHP 8.0+ syntax adoption
 - Cleaner service class structure
 - Reduced boilerplate code in generated files
 - Enhanced stub template system
 
 ### Version 2.0.0
+
 **Release Date:** January 2025
 
 #### 🆕 Major Features
+
 - Enhanced `make:structure` command with optional flags
 - Resource folder generation (Admin/Api subfolders)
 - Repository pattern implementation
 - Service layer architecture
 
 #### 🔧 Core Improvements
+
 - CRUD service separation (Create, Read, Update, Delete)
 - Automated directory structure creation
 - Stub-based file generation system
 - Laravel Passport integration
 
 ### Version 1.0.0
+
 **Release Date:** January 2025
 
 #### 🎉 Initial Release
+
 - Basic Laravel API setup
 - User authentication with Passport
 - Initial CRUD generation command
