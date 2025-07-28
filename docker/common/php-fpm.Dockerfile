@@ -6,34 +6,34 @@ FROM php:8.2-fpm-alpine AS base
 
 # Install runtime dependencies
 RUN apk add --no-cache \
-    git \
-    curl \
-    zip \
-    unzip \
+    git=2.45.2-r0 \
+    curl=8.10.1-r0 \
+    zip=3.0-r12 \
+    unzip=6.0-r14 \
     # Runtime libraries for PHP extensions
-    libpng \
-    libjpeg-turbo \
-    freetype \
-    libxml2 \
-    postgresql-libs \
-    oniguruma \
-    icu-libs
+    libpng=1.6.43-r0 \
+    libjpeg-turbo=3.0.2-r0 \
+    freetype=2.13.2-r0 \
+    libxml2=2.12.7-r0 \
+    postgresql-libs=16.4-r0 \
+    oniguruma=6.9.9-r0 \
+    icu-libs=74.2-r0
 
 # Install build dependencies and PHP extensions in one optimized layer
 RUN apk add --no-cache --virtual .build-deps \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    libxml2-dev \
-    postgresql-dev \
-    oniguruma-dev \
-    icu-dev \
-    autoconf \
-    g++ \
-    make \
-    linux-headers \
+    libpng-dev=1.6.43-r0 \
+    libjpeg-turbo-dev=3.0.2-r0 \
+    freetype-dev=2.13.2-r0 \
+    libxml2-dev=2.12.7-r0 \
+    postgresql-dev=16.4-r0 \
+    oniguruma-dev=6.9.9-r0 \
+    icu-dev=74.2-r0 \
+    autoconf=2.72-r0 \
+    g++=13.2.1_git20240309-r0 \
+    make=4.4.1-r2 \
+    linux-headers=6.6-r0 \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
+    && docker-php-ext-install -j"$(nproc)" \
         pdo \
         pdo_pgsql \
         mbstring \
@@ -62,7 +62,7 @@ RUN addgroup -g 1000 -S www && \
 FROM base AS development
 
 # Install Xdebug for development with required headers
-RUN apk add --no-cache --virtual .xdebug-deps linux-headers autoconf g++ make \
+RUN apk add --no-cache --virtual .xdebug-deps linux-headers=6.6-r0 autoconf=2.72-r0 g++=13.2.1_git20240309-r0 make=4.4.1-r2 \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && apk del .xdebug-deps \
@@ -88,21 +88,32 @@ CMD ["php-fpm"]
 FROM base AS builder
 
 # Install Node.js for asset compilation
-RUN apk add --no-cache nodejs npm
+RUN apk add --no-cache nodejs=20.15.1-r0 npm=10.8.0-r0
 
 # Copy and install composer dependencies first (better caching)
 COPY composer.json composer.lock ./
+# Copy essential Laravel files needed for post-autoload-dump script
+COPY artisan ./
+COPY bootstrap/ ./bootstrap/
+COPY config/ ./config/
+COPY app/ ./app/
+COPY routes/ ./routes/
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist
 
-# Copy and install npm dependencies
+# Copy and install npm dependencies (including dev dependencies for build)
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
-# Copy application code
+# Copy vite config and resources needed for build
+COPY vite.config.js ./
+COPY resources/ ./resources/
+COPY public/ ./public/
+
+# Copy remaining application code
 COPY . .
 
-# Build assets
-RUN npm run build && npm cache clean --force
+# Build assets and clean up
+RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
 # Production stage
 FROM base AS production
@@ -124,8 +135,8 @@ RUN rm -rf \
     /var/www/html/node_modules
 
 # Set proper permissions
-RUN chown -R www:www /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www:www /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 USER www
 
