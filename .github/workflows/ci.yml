@@ -10,95 +10,76 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_PASSWORD: secret  # pragma: allowlist secret
-          POSTGRES_USER: laravel
-          POSTGRES_DB: laravel_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
-      redis:
-        image: redis:7-alpine
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 6379:6379
-
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        extensions: pdo, pdo_pgsql, mbstring, exif, pcntl, bcmath, gd, intl, opcache, redis
-        coverage: xdebug
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-    - name: Copy environment file
-      run: cp .env.example .env
+    - name: Copy environment file for testing
+      run: |
+        cp .env.example .env
+
+    - name: Build Docker images
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml build --parallel
+
+    - name: Start Docker services
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml up -d postgres redis
+        # Wait for services to be ready
+        echo "Waiting for PostgreSQL to be ready..."
+        timeout 60 bash -c 'until docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T postgres pg_isready -U laravel; do sleep 2; done'
+        echo "Waiting for Redis to be ready..."
+        timeout 60 bash -c 'until docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T redis redis-cli ping; do sleep 2; done'
+
+    - name: Start workspace container
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml up -d workspace
+        # Wait for workspace to be ready
+        timeout 60 bash -c 'until docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php --version; do sleep 2; done'
 
     - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
 
     - name: Generate application key
-      run: php artisan key:generate
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan key:generate
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-
-    - name: Install NPM dependencies
-      run: npm ci
-
-    - name: Build assets
-      run: npm run build
+    - name: Install NPM dependencies and build assets
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace npm ci
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace npm run build
 
     - name: Run database migrations
-      run: php artisan migrate --force
-      env:
-        DB_CONNECTION: pgsql
-        DB_HOST: localhost
-        DB_PORT: 5432
-        DB_DATABASE: laravel_test
-        DB_USERNAME: laravel
-        DB_PASSWORD: secret  # pragma: allowlist secret
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan migrate --force
 
     - name: Setup Laravel Passport
-      run: ./scripts/setup-passport.sh
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./scripts/setup-passport.sh
 
     - name: Run PHPStan
-      run: ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
 
     - name: Run Laravel Pint
-      run: ./vendor/bin/pint --test
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./vendor/bin/pint --test
 
     - name: Run tests with coverage
-      run: php artisan test --coverage --min=70
-      env:
-        DB_CONNECTION: pgsql
-        DB_HOST: localhost
-        DB_PORT: 5432
-        DB_DATABASE: laravel_test
-        DB_USERNAME: laravel
-        DB_PASSWORD: secret  # pragma: allowlist secret
-        REDIS_HOST: localhost
-        REDIS_PORT: 6379
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan test --coverage --min=70
 
     - name: Security audit
-      run: composer audit
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace composer audit
+
+    - name: Cleanup Docker containers
+      if: always()
+      run: |
+        docker-compose -f compose.dev.yaml -f compose.ci.yaml down -v
 
   build-docker:
     runs-on: ubuntu-latest
