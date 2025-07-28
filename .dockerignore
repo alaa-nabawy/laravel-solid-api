@@ -74,7 +74,7 @@ bootstrap/cache/*
 # Package managers
 package-lock.json
 yarn.lock
-composer.lock
+# composer.lock - needed for production builds
 
 # Development tools
 .editorconfig
