@@ -21,7 +21,6 @@ Enterprise-ready Laravel API boilerplate with SOLID architecture, automated CRUD
 - [Docker Environment](#docker-environment)
 - [Authentication](#authentication)
 - [Documentation](#documentation)
-- [Version History](#version-history)
 
 ## Features
 
@@ -244,35 +243,6 @@ Comprehensive guides available in the `docs/` directory:
 - **[Passport Setup](./docs/general/passport-setup.md)** - OAuth2 authentication
 
 **📖 [Documentation Index](./docs/README.md)**
-
-## Version History
-
-### v2.1.0 (Current)
-
-_January 2025_
-
-- Enhanced CRUD generation with `--only` and `--no-resource` flags
-- Modern PHP 8.2+ syntax with constructor property promotion
-- Improved command validation and error handling
-- Dynamic output messaging
-
-### v2.0.0
-
-_January 2025_
-
-- Complete `make:structure` command with selective generation
-- Repository pattern with service layer architecture
-- Laravel Passport OAuth2 integration
-- Comprehensive Docker development environment
-
-### v1.0.0
-
-_January 2025_
-
-- Initial Laravel API boilerplate
-- Basic CRUD generation foundation
-- User authentication setup
-- Core repository and service structure
 
 ---
 

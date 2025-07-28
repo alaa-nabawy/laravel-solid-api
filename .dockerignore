@@ -80,7 +80,7 @@ yarn.lock
 .editorconfig
 .eslintrc*
 .prettierrc*
-vite.config.js
+# vite.config.js - needed for asset building
 webpack.mix.js
 tailwind.config.js
 postcss.config.js
