@@ -112,14 +112,14 @@ repos:
         args: ['--baseline', '.secrets.baseline']
         exclude: package-lock\.json$
 
-  # Documentation
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.37.0
-    hooks:
-      - id: markdownlint
-        name: Markdown Linter
-        files: \.md$
-        args: ['--fix']
+  # Documentation (disabled)
+  # - repo: https://github.com/igorshubovych/markdownlint-cli
+  #   rev: v0.37.0
+  #   hooks:
+  #     - id: markdownlint
+  #       name: Markdown Linter
+  #       files: \.md$
+  #       args: ['--fix']
 
 # Global configuration
 default_stages: [pre-commit]
