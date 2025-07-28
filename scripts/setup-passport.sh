@@ -59,12 +59,34 @@ else
     echo "✅ Encryption keys already exist"
 fi
 
-# Step 5: Install Passport (creates default clients)
+# Step 5: Create OAuth clients if they don't exist
 echo "👥 Setting up OAuth clients..."
-if ! run_artisan passport:install --force 2>/dev/null; then
-    echo "ℹ️  Passport installation completed (clients may already exist)"
+
+# Check if oauth_clients table exists and has records
+if run_artisan tinker --execute="try { echo \Laravel\Passport\Client::count(); } catch (Exception \$e) { echo '0'; }" 2>/dev/null | grep -q "^[1-9]"; then
+    echo "✅ OAuth clients already exist"
 else
-    echo "✅ OAuth clients created successfully"
+    echo "🔑 Creating OAuth clients manually..."
+    # Create clients using tinker to avoid migration publishing
+    run_artisan tinker --execute="
+        \Laravel\Passport\Client::create([
+            'name' => 'Laravel Personal Access Client',
+            'secret' => null,
+            'redirect' => 'http://localhost',
+            'personal_access_client' => true,
+            'password_client' => false,
+            'revoked' => false,
+        ]);
+        \Laravel\Passport\Client::create([
+            'name' => 'Laravel Password Grant Client',
+            'secret' => \Illuminate\Support\Str::random(40),
+            'redirect' => 'http://localhost',
+            'personal_access_client' => false,
+            'password_client' => true,
+            'revoked' => false,
+        ]);
+        echo 'OAuth clients created successfully';
+    " 2>/dev/null || echo "ℹ️  Client creation completed (may already exist)"
 fi
 
 echo "🎉 Laravel Passport setup completed successfully!"
