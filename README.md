@@ -15,53 +15,13 @@ A Laravel-based API project implementing SOLID principles with enhanced CRUD gen
 
 This project includes powerful Artisan commands for rapid development with clean architecture patterns.
 
-### Available Commands
+### Quick Overview
 
-#### `make:structure` - Enhanced CRUD Structure Generator
+- **`make:structure`** - Enhanced CRUD structure generator with selective generation
+- **`make:route-group`** - Route group generator with automatic registration
+- **`generate:crud`** - Legacy CRUD generator
 
-Generate complete CRUD structures with repositories, services, and optional resource folders.
-
-```bash
-# Generate full CRUD structure
-php artisan make:structure Post
-
-# Generate specific CRUD methods only
-php artisan make:structure Post --only=create,read,update
-
-# Skip resource folder generation
-php artisan make:structure Post --no-resource
-
-# Combine options
-php artisan make:structure Post --only=read,update --no-resource
-```
-
-**Generated Structure:**
-```
-app/
-├── Http/
-│   └── Resources/
-│       └── Post/
-│           ├── Admin/
-│           └── Api/
-├── Services/
-│   └── Post/
-│       ├── PostCreateService.php
-│       ├── PostReadService.php
-│       ├── PostUpdateService.php
-│       └── PostDeleteService.php
-└── Repositories/
-    └── PostRepository.php
-```
-
-#### `generate:crud` - Legacy CRUD Generator
-
-Original CRUD generation command with resource folder support.
-
-```bash
-php artisan generate:crud Post
-```
-
-### Features
+### Key Features
 
 - **🏗️ SOLID Architecture**: Repository pattern with service layer separation
 - **🎯 Selective Generation**: Choose specific CRUD methods to generate
@@ -69,6 +29,18 @@ php artisan generate:crud Post
 - **🔧 Modern PHP**: Constructor property promotion (PHP 8.0+)
 - **📝 Clean Code**: Consistent naming conventions and structure
 - **⚡ Rapid Development**: Generate complete CRUD structures in seconds
+
+📖 **[Complete Documentation](./docs/general/route-generation.md)** - Detailed guide with examples and advanced usage
+
+## 📚 Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[Documentation Overview](./docs/README.md)** - Main documentation index
+- **[Architecture Guide](./docs/general/architecture.md)** - SOLID principles and project architecture
+- **[Service Repository Pattern](./docs/general/service-repository-pattern.md)** - Detailed implementation guide
+- **[Route Generation Commands](./docs/general/route-generation.md)** - Complete command reference
+- **[DevOps Guide](./docs/general/devops.md)** - Development operations and deployment
 
 ## 📋 Version History
 
