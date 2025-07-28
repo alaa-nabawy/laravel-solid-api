@@ -65,7 +65,7 @@ setup_dev_environment() {
     echo "🚀 Setting up development environment..."
 
     # Start development containers if not running
-    if ! docker-compose -f compose.dev.yaml ps | grep -q "Up"; then
+    if ! docker compose -f compose.dev.yaml ps | grep -q "Up"; then
         echo "Starting development containers..."
         make dev
         echo "Waiting for containers to be ready..."

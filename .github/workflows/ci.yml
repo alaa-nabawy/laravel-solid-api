@@ -22,64 +22,64 @@ jobs:
 
     - name: Build Docker images
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml build --parallel
+        docker compose -f compose.dev.yaml -f compose.ci.yaml build --parallel
 
     - name: Start Docker services
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml up -d postgres redis
+        docker compose -f compose.dev.yaml -f compose.ci.yaml up -d postgres redis
         # Wait for services to be ready
         echo "Waiting for PostgreSQL to be ready..."
-        timeout 60 bash -c 'until docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T postgres pg_isready -U laravel; do sleep 2; done'
+        timeout 60 bash -c 'until docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T postgres pg_isready -U laravel; do sleep 2; done'
         echo "Waiting for Redis to be ready..."
-        timeout 60 bash -c 'until docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T redis redis-cli ping; do sleep 2; done'
+        timeout 60 bash -c 'until docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T redis redis-cli ping; do sleep 2; done'
 
     - name: Start workspace container
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml up -d workspace
+        docker compose -f compose.dev.yaml -f compose.ci.yaml up -d workspace
         # Wait for workspace to be ready
-        timeout 60 bash -c 'until docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php --version; do sleep 2; done'
+        timeout 60 bash -c 'until docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php --version; do sleep 2; done'
 
     - name: Install Composer dependencies
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
 
     - name: Generate application key
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan key:generate
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan key:generate
 
     - name: Install NPM dependencies and build assets
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace npm ci
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace npm run build
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace npm ci
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace npm run build
 
     - name: Run database migrations
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan migrate --force
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan migrate --force
 
     - name: Setup Laravel Passport
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./scripts/setup-passport.sh
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./scripts/setup-passport.sh
 
     - name: Run PHPStan
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
 
     - name: Run Laravel Pint
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./vendor/bin/pint --test
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace ./vendor/bin/pint --test
 
     - name: Run tests with coverage
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan test --coverage --min=70
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace php artisan test --coverage --min=70
 
     - name: Security audit
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace composer audit
+        docker compose -f compose.dev.yaml -f compose.ci.yaml exec -T workspace composer audit
 
     - name: Cleanup Docker containers
       if: always()
       run: |
-        docker-compose -f compose.dev.yaml -f compose.ci.yaml down -v
+        docker compose -f compose.dev.yaml -f compose.ci.yaml down -v
 
   build-docker:
     runs-on: ubuntu-latest
@@ -102,5 +102,5 @@ jobs:
 
     - name: Test Docker containers
       run: |
-        docker-compose -f compose.dev.yaml config
-        docker-compose -f compose.prod.yaml config
+        docker compose -f compose.dev.yaml config
+        docker compose -f compose.prod.yaml config

@@ -24,7 +24,7 @@ cleanup_docker() {
 
     # Stop and remove containers
     echo "Stopping containers..."
-    docker-compose -f compose.dev.yaml down --remove-orphans 2>/dev/null || true
+    docker compose -f compose.dev.yaml down --remove-orphans 2>/dev/null || true
 
     # Remove dangling images
     echo "Removing dangling images..."
@@ -50,10 +50,10 @@ rebuild_images() {
 
     # Build with no cache to ensure fresh build
     echo "Building app image..."
-    docker-compose -f compose.dev.yaml build --no-cache app
+    docker compose -f compose.dev.yaml build --no-cache app
 
     echo "Building workspace image..."
-    docker-compose -f compose.dev.yaml build --no-cache workspace
+    docker compose -f compose.dev.yaml build --no-cache workspace
 
     echo "✅ Images rebuilt successfully"
 }
@@ -84,8 +84,8 @@ check_resources() {
 show_build_logs() {
     echo "📝 Recent Docker build logs:"
     echo "You can check detailed build logs with:"
-    echo "  docker-compose -f compose.dev.yaml build --progress=plain app"
-    echo "  docker-compose -f compose.dev.yaml build --progress=plain workspace"
+    echo "  docker compose -f compose.dev.yaml build --progress=plain app"
+    echo "  docker compose -f compose.dev.yaml build --progress=plain workspace"
 }
 
 # Function to show common solutions
@@ -106,11 +106,11 @@ show_solutions() {
     echo ""
     echo "4. PHP extension compilation issues:"
     echo "   - The Dockerfiles have been optimized to build extensions separately"
-    echo "   - Try building individual services: docker-compose build app"
+    echo "   - Try building individual services: docker compose build app"
     echo ""
     echo "5. Cache issues:"
     echo "   - Clear Docker build cache: docker builder prune -a"
-    echo "   - Use --no-cache flag: docker-compose build --no-cache"
+    echo "   - Use --no-cache flag: docker compose build --no-cache"
 }
 
 # Main menu
@@ -137,7 +137,7 @@ full_troubleshoot() {
     cleanup_docker
     echo ""
     echo "Now try running: make setup"
-    echo "If issues persist, try: docker-compose -f compose.dev.yaml build --no-cache"
+    echo "If issues persist, try: docker compose -f compose.dev.yaml build --no-cache"
 }
 
 # Main script logic

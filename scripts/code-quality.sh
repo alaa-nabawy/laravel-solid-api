@@ -21,7 +21,7 @@ install_dev_deps() {
     echo "📦 Installing development dependencies..."
 
     # Install PHP development tools via Composer
-    docker-compose -f compose.dev.yaml exec workspace composer require --dev \
+    docker compose -f compose.dev.yaml exec workspace composer require --dev \
         phpstan/phpstan \
         psalm/plugin-laravel \
         vimeo/psalm \
@@ -60,7 +60,7 @@ EOF
         echo "📝 Created phpstan.neon configuration"
     fi
 
-    docker-compose -f compose.dev.yaml exec workspace ./vendor/bin/phpstan analyse --memory-limit=1G
+    docker compose -f compose.dev.yaml exec workspace ./vendor/bin/phpstan analyse --memory-limit=1G
 }
 
 # Function to run Psalm analysis
@@ -69,11 +69,11 @@ run_psalm() {
 
     # Initialize Psalm if config doesn't exist
     if [ ! -f "psalm.xml" ]; then
-        docker-compose -f compose.dev.yaml exec workspace ./vendor/bin/psalm --init
+        docker compose -f compose.dev.yaml exec workspace ./vendor/bin/psalm --init
         echo "📝 Initialized Psalm configuration"
     fi
 
-    docker-compose -f compose.dev.yaml exec workspace ./vendor/bin/psalm
+    docker compose -f compose.dev.yaml exec workspace ./vendor/bin/psalm
 }
 
 # Function to run code style fixes
@@ -81,7 +81,7 @@ run_code_style() {
     echo "🎨 Running code style fixes..."
 
     # Run Laravel Pint for code formatting
-    docker-compose -f compose.dev.yaml exec workspace ./vendor/bin/pint
+    docker compose -f compose.dev.yaml exec workspace ./vendor/bin/pint
 
     echo "✅ Code style fixes applied"
 }
@@ -97,7 +97,7 @@ run_tests_with_coverage() {
     fi
 
     # Run tests with coverage
-    docker-compose -f compose.dev.yaml exec workspace php artisan test --coverage --min=80
+    docker compose -f compose.dev.yaml exec workspace php artisan test --coverage --min=80
 }
 
 # Function to run security audit
@@ -105,21 +105,21 @@ run_security_audit() {
     echo "🔒 Running security audit..."
 
     # Check for known vulnerabilities in dependencies
-    docker-compose -f compose.dev.yaml exec workspace composer audit
+    docker compose -f compose.dev.yaml exec workspace composer audit
 
     # Check for outdated packages
     echo "\n📊 Checking for outdated packages:"
-    docker-compose -f compose.dev.yaml exec workspace composer outdated --direct
+    docker compose -f compose.dev.yaml exec workspace composer outdated --direct
 }
 
 # Function to optimize application
 optimize_app() {
     echo "⚡ Optimizing application..."
 
-    docker-compose -f compose.dev.yaml exec workspace php artisan config:cache
-    docker-compose -f compose.dev.yaml exec workspace php artisan route:cache
-    docker-compose -f compose.dev.yaml exec workspace php artisan view:cache
-    docker-compose -f compose.dev.yaml exec workspace php artisan event:cache
+    docker compose -f compose.dev.yaml exec workspace php artisan config:cache
+    docker compose -f compose.dev.yaml exec workspace php artisan route:cache
+    docker compose -f compose.dev.yaml exec workspace php artisan view:cache
+    docker compose -f compose.dev.yaml exec workspace php artisan event:cache
 
     echo "✅ Application optimized"
 }
@@ -128,11 +128,11 @@ optimize_app() {
 clear_caches() {
     echo "🧹 Clearing all caches..."
 
-    docker-compose -f compose.dev.yaml exec workspace php artisan config:clear
-    docker-compose -f compose.dev.yaml exec workspace php artisan route:clear
-    docker-compose -f compose.dev.yaml exec workspace php artisan view:clear
-    docker-compose -f compose.dev.yaml exec workspace php artisan event:clear
-    docker-compose -f compose.dev.yaml exec workspace php artisan cache:clear
+    docker compose -f compose.dev.yaml exec workspace php artisan config:clear
+    docker compose -f compose.dev.yaml exec workspace php artisan route:clear
+    docker compose -f compose.dev.yaml exec workspace php artisan view:clear
+    docker compose -f compose.dev.yaml exec workspace php artisan event:clear
+    docker compose -f compose.dev.yaml exec workspace php artisan cache:clear
 
     echo "✅ All caches cleared"
 }
@@ -142,12 +142,12 @@ generate_ide_helpers() {
     echo "💡 Generating IDE helper files..."
 
     # Install IDE helper if not present
-    docker-compose -f compose.dev.yaml exec workspace composer require --dev barryvdh/laravel-ide-helper --no-interaction
+    docker compose -f compose.dev.yaml exec workspace composer require --dev barryvdh/laravel-ide-helper --no-interaction
 
     # Generate helper files
-    docker-compose -f compose.dev.yaml exec workspace php artisan ide-helper:generate
-    docker-compose -f compose.dev.yaml exec workspace php artisan ide-helper:models --nowrite
-    docker-compose -f compose.dev.yaml exec workspace php artisan ide-helper:meta
+    docker compose -f compose.dev.yaml exec workspace php artisan ide-helper:generate
+    docker compose -f compose.dev.yaml exec workspace php artisan ide-helper:models --nowrite
+    docker compose -f compose.dev.yaml exec workspace php artisan ide-helper:meta
 
     echo "✅ IDE helper files generated"
 }
@@ -158,11 +158,11 @@ analyze_database() {
 
     # Check migration status
     echo "Migration status:"
-    docker-compose -f compose.dev.yaml exec workspace php artisan migrate:status
+    docker compose -f compose.dev.yaml exec workspace php artisan migrate:status
 
     # Show database size and table info
     echo "\nDatabase information:"
-    docker-compose -f compose.dev.yaml exec postgres psql -U laravel -d laravel_dev -c "
+    docker compose -f compose.dev.yaml exec postgres psql -U laravel -d laravel_dev -c "
         SELECT
             schemaname,
             tablename,
