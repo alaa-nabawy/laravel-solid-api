@@ -1,0 +1,107 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+docker-compose*.yaml
+compose*.yaml
+compose*.yml
+.dockerignore
+
+# Documentation
+README.md
+docs/
+*.md
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Laravel specific
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# Testing
+/tests
+phpunit.xml
+.phpunit.cache
+coverage/
+
+# Build artifacts
+/public/build
+/public/mix-manifest.json
+
+# Logs
+storage/logs/*
+*.log
+
+# Cache
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Package managers
+package-lock.json
+yarn.lock
+composer.lock
+
+# Development tools
+.editorconfig
+.eslintrc*
+.prettierrc*
+vite.config.js
+webpack.mix.js
+tailwind.config.js
+postcss.config.js
+
+# Backup files
+*.bak
+*.backup
+
+# Database
+*.sqlite
+*.db
+database/database.sqlite
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.p12
+
+# Docker volumes
+postgres_data/
+redis_data/
+
+covera

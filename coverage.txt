@@ -1,0 +1,12 @@
+
+
+Code Coverage Report:
+  2025-07-28 14:19:52
+
+ Summary:
+  Classes: 25.00% (1/4)
+  Methods: 14.29% (2/14)
+  Lines:    2.60% (5/192)
+
+App\Providers\AppServiceProvider
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  5/  5)

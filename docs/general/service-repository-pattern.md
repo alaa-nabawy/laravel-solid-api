@@ -7,9 +7,11 @@ The Laravel API SOLID project implements a robust Service Repository pattern tha
 ## 📐 Pattern Architecture
 
 ### Repository Layer
+
 The repository layer abstracts data access logic and provides a uniform interface for data operations.
 
 **Key Features:**
+
 - Uses **Prettus L5 Repository** package (v2.10)
 - Implements `BaseRepository` for common operations
 - Provides search, filtering, and pagination capabilities
@@ -17,9 +19,11 @@ The repository layer abstracts data access logic and provides a uniform interfac
 - Enables easy testing through mocking
 
 ### Service Layer
+
 The service layer encapsulates business logic and orchestrates operations between multiple repositories.
 
 **Key Features:**
+
 - **CRUD Separation**: Individual services for Create, Read, Update, Delete operations
 - **Constructor Property Promotion**: Modern PHP 8.0+ syntax
 - **Dependency Injection**: Clean dependency management
@@ -34,12 +38,14 @@ The project includes powerful Artisan commands for rapid development with clean 
 Generate complete CRUD structures with repositories, services, and optional resource folders.
 
 #### Basic Usage
+
 ```bash
 # Generate full CRUD structure
 php artisan make:structure Post
 ```
 
 #### Advanced Options
+
 ```bash
 # Generate specific CRUD methods only
 php artisan make:structure Post --only=create,read,update
@@ -52,6 +58,7 @@ php artisan make:structure Post --only=read,update --no-resource
 ```
 
 #### Generated Structure
+
 ```
 app/
 ├── Http/
@@ -80,6 +87,7 @@ app/
 ## 📁 File Templates
 
 ### Repository Template
+
 ```php
 <?php
 
@@ -112,6 +120,7 @@ class {{model}}Repository extends BaseRepository
 ```
 
 ### Service Template
+
 ```php
 <?php
 
@@ -135,6 +144,7 @@ class {{className}}Service
 The repository pattern is configured in `config/repository.php` with the following capabilities:
 
 ### Search Parameters
+
 - **search**: General search across specified fields
 - **searchFields**: Define which fields to search
 - **filter**: Specify fields to return in response
@@ -143,6 +153,7 @@ The repository pattern is configured in `config/repository.php` with the followi
 - **searchJoin**: Search method (AND/OR)
 
 ### Example Usage
+
 ```
 # Search with field specification
 GET /api/posts?search=laravel&searchFields=title:like,content:like
@@ -160,6 +171,7 @@ GET /api/posts?search=laravel&searchFields=title:like&searchJoin=and
 ## 💡 Implementation Examples
 
 ### Repository Implementation
+
 ```php
 <?php
 
@@ -180,13 +192,13 @@ class UserRepository extends BaseRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
     // Custom repository methods
     public function findByEmail(string $email)
     {
         return $this->findByField('email', $email)->first();
     }
-    
+
     public function getActiveUsers()
     {
         return $this->findByField('status', 'active');
@@ -195,6 +207,7 @@ class UserRepository extends BaseRepository
 ```
 
 ### Service Implementation
+
 ```php
 <?php
 
@@ -211,14 +224,14 @@ class UserCreateService
     {
         // Business logic validation
         $this->validateUserData($data);
-        
+
         // Hash password
         $data['password'] = Hash::make($data['password']);
-        
+
         // Create user through repository
         return $this->userRepository->create($data);
     }
-    
+
     private function validateUserData(array $data): void
     {
         // Custom business validation logic
@@ -230,6 +243,7 @@ class UserCreateService
 ```
 
 ### Controller Integration
+
 ```php
 <?php
 
@@ -250,17 +264,17 @@ class UserController extends Controller
     public function store(CreateUserRequest $request): JsonResponse
     {
         $user = $this->createService->create($request->validated());
-        
+
         return response()->json([
             'message' => 'User created successfully',
             'data' => $user
         ], 201);
     }
-    
+
     public function index(): JsonResponse
     {
         $users = $this->readService->getAllUsers();
-        
+
         return response()->json([
             'data' => $users
         ]);
@@ -271,23 +285,24 @@ class UserController extends Controller
 ## 🧪 Testing Strategy
 
 ### Repository Testing
+
 ```php
 class UserRepositoryTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     public function test_can_create_user()
     {
         $repository = app(UserRepository::class);
-        
+
         $userData = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'password123'
         ];
-        
+
         $user = $repository->create($userData);
-        
+
         $this->assertDatabaseHas('users', [
             'email' => 'john@example.com'
         ]);
@@ -296,6 +311,7 @@ class UserRepositoryTest extends TestCase
 ```
 
 ### Service Testing
+
 ```php
 class UserCreateServiceTest extends TestCase
 {
@@ -303,26 +319,26 @@ class UserCreateServiceTest extends TestCase
     {
         $mockRepository = Mockery::mock(UserRepository::class);
         $service = new UserCreateService($mockRepository);
-        
+
         $userData = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'password123'
         ];
-        
+
         $mockRepository->shouldReceive('findByEmail')
             ->once()
             ->andReturn(null);
-            
+
         $mockRepository->shouldReceive('create')
             ->once()
             ->with(Mockery::on(function ($data) {
                 return Hash::check('password123', $data['password']);
             }))
             ->andReturn(new User($userData));
-        
+
         $result = $service->create($userData);
-        
+
         $this->assertInstanceOf(User::class, $result);
     }
 }
@@ -331,21 +347,25 @@ class UserCreateServiceTest extends TestCase
 ## 📊 Benefits
 
 ### Code Organization
+
 - **Separation of Concerns**: Clear boundaries between layers
 - **Single Responsibility**: Each class has one specific purpose
 - **Dependency Inversion**: High-level modules don't depend on low-level modules
 
 ### Development Speed
+
 - **Rapid Generation**: Complete CRUD structures in seconds
 - **Consistent Structure**: Standardized code organization
 - **Reduced Boilerplate**: Automated code generation
 
 ### Maintainability
+
 - **Easy Testing**: Mockable dependencies
 - **Flexible Implementation**: Easy to swap implementations
 - **Clean Controllers**: Thin controllers with delegated logic
 
 ### Scalability
+
 - **Reusable Services**: Services can be used across different controllers
 - **Cacheable Repositories**: Built-in caching support
 - **Query Optimization**: Criteria-based query building
@@ -353,6 +373,7 @@ class UserCreateServiceTest extends TestCase
 ## 🔮 Advanced Features
 
 ### Repository Criteria
+
 ```php
 // Custom criteria for complex queries
 class ActiveUsersCriteria implements CriteriaInterface
@@ -371,6 +392,7 @@ $users = $this->userRepository
 ```
 
 ### Service Composition
+
 ```php
 class UserRegistrationService
 {
@@ -379,13 +401,13 @@ class UserRegistrationService
         private EmailVerificationService $emailService,
         private WelcomeEmailService $welcomeService
     ) {}
-    
+
     public function register(array $data)
     {
         $user = $this->createService->create($data);
         $this->emailService->sendVerification($user);
         $this->welcomeService->sendWelcomeEmail($user);
-        
+
         return $user;
     }
 }

@@ -11,11 +11,13 @@ The Laravel API SOLID project includes powerful Artisan commands for rapid devel
 Generate complete CRUD structures with repositories, services, and optional resource folders.
 
 #### Command Signature
+
 ```bash
 php artisan make:structure {model} {--no-resource} {--only=}
 ```
 
 #### Basic Usage
+
 ```bash
 # Generate full CRUD structure
 php artisan make:structure Post
@@ -24,6 +26,7 @@ php artisan make:structure Post
 #### Advanced Options
 
 **Selective CRUD Generation**
+
 ```bash
 # Generate specific CRUD methods only
 php artisan make:structure Post --only=create,read,update
@@ -32,18 +35,21 @@ php artisan make:structure Post --only=create,delete
 ```
 
 **Skip Resource Folders**
+
 ```bash
 # Skip resource folder generation
 php artisan make:structure Post --no-resource
 ```
 
 **Combined Options**
+
 ```bash
 # Combine options for maximum flexibility
 php artisan make:structure Post --only=read,update --no-resource
 ```
 
 #### Generated Structure
+
 ```
 app/
 ├── Http/
@@ -66,17 +72,20 @@ app/
 Create route groups with middleware and automatic registration in the application bootstrap.
 
 #### Command Signature
+
 ```bash
 php artisan make:route-group {name} {--prefix=} {--middleware=}
 ```
 
 #### Basic Usage
+
 ```bash
 # Generate route group with default settings
 php artisan make:route-group Admin
 ```
 
 #### Advanced Options
+
 ```bash
 # Custom prefix and middleware
 php artisan make:route-group Admin --prefix=admin --middleware=admin
@@ -124,6 +133,7 @@ php artisan generate:crud Post
 ## 📁 Template System
 
 ### Service Template (`stubs/service.stub`)
+
 ```php
 <?php
 
@@ -143,6 +153,7 @@ class {{className}}Service
 ```
 
 ### Repository Template (`stubs/repository.stub`)
+
 ```php
 <?php
 
@@ -175,6 +186,7 @@ class {{model}}Repository extends BaseRepository
 ```
 
 ### Route Group Template (`stubs/route-group.stub`)
+
 ```php
 <?php
 
@@ -202,6 +214,7 @@ Route::get('/', function () {
 ## 💡 Usage Examples
 
 ### Example 1: Blog Post CRUD
+
 ```bash
 # Generate complete blog post structure
 php artisan make:structure Post
@@ -217,6 +230,7 @@ php artisan make:structure Post
 ```
 
 ### Example 2: API-Only User Management
+
 ```bash
 # Generate user services without resource folders
 php artisan make:structure User --no-resource
@@ -230,6 +244,7 @@ php artisan make:structure User --no-resource
 ```
 
 ### Example 3: Read-Only Product Catalog
+
 ```bash
 # Generate only read operations for products
 php artisan make:structure Product --only=read
@@ -242,6 +257,7 @@ php artisan make:structure Product --only=read
 ```
 
 ### Example 4: Admin Route Group
+
 ```bash
 # Create admin route group
 php artisan make:route-group Admin --prefix=admin --middleware=admin
@@ -255,6 +271,7 @@ php artisan make:route-group Admin --prefix=admin --middleware=admin
 ## 🔄 Generated Code Examples
 
 ### Generated Service Class
+
 ```php
 <?php
 
@@ -275,6 +292,7 @@ class PostCreateService
 ```
 
 ### Generated Repository Class
+
 ```php
 <?php
 
@@ -299,6 +317,7 @@ class PostRepository extends BaseRepository
 ```
 
 ### Generated Route File
+
 ```php
 <?php
 
@@ -345,6 +364,7 @@ You can customize the generated code by modifying the stub files:
 ## 📊 Command Output Examples
 
 ### Successful Generation
+
 ```bash
 $ php artisan make:structure Post --only=create,read
 Repository, Service files, Resource folders (Admin, Api) created for Post with methods: create, read.
@@ -362,6 +382,7 @@ $ php artisan make:route-group Admin --prefix=admin
 ## 🧪 Testing Generated Code
 
 ### Testing Services
+
 ```php
 class PostCreateServiceTest extends TestCase
 {
@@ -369,32 +390,33 @@ class PostCreateServiceTest extends TestCase
     {
         $mockRepository = Mockery::mock(PostRepository::class);
         $service = new PostCreateService($mockRepository);
-        
+
         $postData = [
             'title' => 'Test Post',
             'content' => 'Test content'
         ];
-        
+
         $mockRepository->shouldReceive('create')
             ->once()
             ->with($postData)
             ->andReturn(new Post($postData));
-        
+
         $result = $service->create($postData);
-        
+
         $this->assertInstanceOf(Post::class, $result);
     }
 }
 ```
 
 ### Testing Routes
+
 ```php
 class AdminRoutesTest extends TestCase
 {
     public function test_admin_index_route()
     {
         $response = $this->get('/admin/');
-        
+
         $response->assertStatus(200)
                 ->assertJson([
                     'message' => 'Welcome to Admin API',
@@ -407,18 +429,21 @@ class AdminRoutesTest extends TestCase
 ## 📚 Best Practices
 
 ### Command Usage
+
 1. **Start Small**: Use `--only` flag for specific operations
 2. **Skip Unnecessary**: Use `--no-resource` when resources aren't needed
 3. **Consistent Naming**: Use PascalCase for model names
 4. **Test Generated Code**: Always test generated services and repositories
 
 ### Code Organization
+
 1. **Follow Conventions**: Stick to Laravel naming conventions
 2. **Add Business Logic**: Implement actual logic in generated service methods
 3. **Handle Exceptions**: Add proper error handling
 4. **Document Methods**: Add PHPDoc comments to generated methods
 
 ### Route Management
+
 1. **Group Related Routes**: Use route groups for related functionality
 2. **Apply Middleware**: Use appropriate middleware for security
 3. **Version APIs**: Consider versioning for public APIs
@@ -427,6 +452,7 @@ class AdminRoutesTest extends TestCase
 ## 🔮 Future Enhancements
 
 ### Planned Features
+
 - **Controller Generation**: Automatic controller creation with service injection
 - **Request Validation**: Generate form request classes
 - **API Documentation**: Automatic OpenAPI/Swagger documentation
@@ -435,6 +461,7 @@ class AdminRoutesTest extends TestCase
 - **Seeder Generation**: Create seeders for generated models
 
 ### Advanced Templates
+
 - **Custom Service Templates**: Different templates for different use cases
 - **Repository Variants**: Templates for different repository patterns
 - **Resource Templates**: Pre-built API resource templates

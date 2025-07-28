@@ -5,10 +5,13 @@ Welcome to the Laravel API SOLID documentation. This directory contains comprehe
 ## 📚 Documentation Structure
 
 ### General Documentation
+
 - [Architecture](./general/architecture.md) - Project architecture and SOLID principles implementation
 - [DevOps](./general/devops.md) - Development operations, deployment, and environment setup
 - [Service Repository Pattern](./general/service-repository-pattern.md) - Detailed guide on the service and repository pattern implementation
 - [Route Generation](./general/route-generation.md) - Complete guide to the enhanced route generation commands
+- [Code Quality Tools](./general/code-quality-tools.md) - Comprehensive guide to code quality scripts and tools
+- [Pre-commit Setup](./general/pre-commit-setup.md) - Pre-commit hooks configuration and usage
 
 ## 🚀 Quick Links
 

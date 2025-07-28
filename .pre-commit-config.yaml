@@ -1,0 +1,140 @@
+# Pre-commit hooks configuration for Laravel project
+# See https://pre-commit.com for more information
+
+repos:
+  # PHP Code Quality Hooks
+  - repo: local
+    hooks:
+      # Laravel Pint - Code Style Formatting
+      - id: laravel-pint
+        name: Laravel Pint (Code Style)
+        entry: docker compose -f compose.dev.yaml exec -T workspace ./vendor/bin/pint
+        language: system
+        files: \.php$
+        pass_filenames: false
+        stages: [pre-commit]
+        verbose: true
+
+      # PHPStan - Static Analysis
+      - id: phpstan
+        name: PHPStan (Static Analysis)
+        entry: docker compose -f compose.dev.yaml exec -T workspace ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+        language: system
+        files: \.php$
+        pass_filenames: false
+        stages: [pre-commit]
+        verbose: true
+
+      # PHP Unit Tests
+      - id: phpunit
+        name: PHPUnit (Unit Tests)
+        entry: docker compose -f compose.dev.yaml exec -T workspace ./vendor/bin/phpunit --configuration=phpunit.precommit.xml --stop-on-failure
+        language: system
+        files: \.php$
+        pass_filenames: false
+        stages: [pre-commit]
+        verbose: true
+
+      # Composer Security Audit
+      - id: composer-audit
+        name: Composer Security Audit
+        entry: docker compose -f compose.dev.yaml exec -T workspace composer audit
+        language: system
+        files: composer\.(json|lock)$
+        pass_filenames: false
+        stages: [pre-commit]
+        verbose: true
+
+  # General Code Quality Hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # Basic file checks
+      - id: trailing-whitespace
+        exclude: \.md$
+      - id: end-of-file-fixer
+        exclude: (\.md$|coverage-html/)
+      - id: check-yaml
+        files: \.(yaml|yml)$
+      - id: check-json
+        files: \.json$
+      - id: check-xml
+        files: \.xml$
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+
+      # Prevent commits to main/master
+      - id: no-commit-to-branch
+        args: ['--branch', 'main', '--branch', 'master']
+
+  # Docker and Infrastructure
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.0
+    hooks:
+      - id: hadolint-docker
+        name: Hadolint (Dockerfile Linter)
+        files: Dockerfile.*$
+
+  # JavaScript/Node.js Quality
+  - repo: local
+    hooks:
+      # ESLint for JavaScript
+      - id: eslint
+        name: ESLint (JavaScript Linter)
+        entry: docker compose -f compose.dev.yaml exec -T workspace npm run lint
+        language: system
+        files: \.(js|ts|vue)$
+        pass_filenames: false
+        stages: [pre-commit]
+        verbose: true
+        # Only run if package.json has lint script
+        require_serial: false
+
+      # Prettier for code formatting
+      - id: prettier
+        name: Prettier (Code Formatter)
+        entry: docker compose -f compose.dev.yaml exec -T workspace npx prettier --write
+        language: system
+        files: \.(js|ts|vue|css|scss|json|md)$
+        stages: [pre-commit]
+        verbose: true
+
+  # Security Scanning
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        name: Detect Secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package-lock\.json$
+
+  # Documentation (disabled)
+  # - repo: https://github.com/igorshubovych/markdownlint-cli
+  #   rev: v0.37.0
+  #   hooks:
+  #     - id: markdownlint
+  #       name: Markdown Linter
+  #       files: \.md$
+  #       args: ['--fix']
+
+# Global configuration
+default_stages: [pre-commit]
+fail_fast: false
+minimum_pre_commit_version: '3.0.0'
+
+# CI configuration
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

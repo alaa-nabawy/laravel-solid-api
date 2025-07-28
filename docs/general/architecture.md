@@ -7,21 +7,25 @@ This project implements a clean architecture following SOLID principles with a c
 ## 📐 Architecture Layers
 
 ### 1. Presentation Layer
+
 - **Controllers**: Handle HTTP requests and responses
 - **Resources**: Transform data for API responses
 - **Middleware**: Handle cross-cutting concerns (authentication, validation, etc.)
 
 ### 2. Application Layer (Service Layer)
+
 - **Services**: Contain business logic and orchestrate operations
 - **Commands**: Handle complex operations and workflows
 - **Events**: Manage application events and notifications
 
 ### 3. Domain Layer
+
 - **Models**: Eloquent models representing domain entities
 - **Repositories**: Abstract data access layer
 - **Contracts/Interfaces**: Define service contracts
 
 ### 4. Infrastructure Layer
+
 - **Database**: Migrations, seeders, and database configuration
 - **External Services**: Third-party integrations
 - **File System**: Storage and file handling
@@ -29,24 +33,29 @@ This project implements a clean architecture following SOLID principles with a c
 ## 🎯 SOLID Principles Implementation
 
 ### Single Responsibility Principle (SRP)
+
 - Each service class handles one specific business operation
 - Repositories only handle data access for their respective models
 - Controllers only handle HTTP request/response logic
 
 ### Open/Closed Principle (OCP)
+
 - Services are open for extension through inheritance
 - Repository pattern allows for different implementations
 - Interface-based design enables easy extension
 
 ### Liskov Substitution Principle (LSP)
+
 - Repository implementations can be substituted without breaking functionality
 - Service interfaces ensure consistent behavior across implementations
 
 ### Interface Segregation Principle (ISP)
+
 - Small, focused interfaces for specific operations
 - Clients depend only on methods they actually use
 
 ### Dependency Inversion Principle (DIP)
+
 - High-level modules (Services) don't depend on low-level modules (Repositories)
 - Both depend on abstractions (Interfaces)
 - Constructor dependency injection throughout the application
@@ -86,18 +95,21 @@ app/
 ## 🛠️ Key Design Patterns
 
 ### Repository Pattern
+
 - Encapsulates data access logic
 - Provides a uniform interface for data operations
 - Enables easy testing through mocking
 - Uses Prettus L5 Repository package
 
 ### Service Layer Pattern
+
 - Encapsulates business logic
 - Coordinates between multiple repositories
 - Handles complex business operations
 - Maintains transaction boundaries
 
 ### Dependency Injection
+
 - Constructor injection for dependencies
 - Laravel's service container manages dependencies
 - Promotes loose coupling and testability
@@ -105,16 +117,19 @@ app/
 ## 🧪 Testing Strategy
 
 ### Unit Tests
+
 - Test individual service methods
 - Mock repository dependencies
 - Focus on business logic validation
 
 ### Feature Tests
+
 - Test complete request/response cycles
 - Use database transactions for isolation
 - Test API endpoints and workflows
 
 ### Integration Tests
+
 - Test service and repository interactions
 - Validate data persistence
 - Test external service integrations
@@ -131,13 +146,16 @@ app/
 ## 🔧 Configuration
 
 ### Repository Configuration
+
 Repository settings are configured in `config/repository.php`:
+
 - Search parameters
 - Filtering options
 - Pagination settings
 - Cache configuration
 
 ### Service Registration
+
 Services are automatically resolved through Laravel's service container using constructor injection.
 
 ## 📈 Performance Considerations
