@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Services\{{model}};
+
+use App\Repositories\{{model}}Repository;
+
+class {{className}}Service
+{
+    public function __construct(private {{model}}Repository ${{lowerModel}}Repository) {}
+
+    public function {{lowerMethod}}(array $data)
+    {
+        // Your {{lowerMethod}} logic goes here
+    }
+}
