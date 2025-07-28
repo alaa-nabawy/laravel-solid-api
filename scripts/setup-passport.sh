@@ -72,17 +72,15 @@ else
         \Laravel\Passport\Client::create([
             'name' => 'Laravel Personal Access Client',
             'secret' => null,
-            'redirect' => 'http://localhost',
-            'personal_access_client' => true,
-            'password_client' => false,
+            'redirect_uris' => 'http://localhost',
+            'grant_types' => 'personal_access',
             'revoked' => false,
         ]);
         \Laravel\Passport\Client::create([
             'name' => 'Laravel Password Grant Client',
             'secret' => \Illuminate\Support\Str::random(40),
-            'redirect' => 'http://localhost',
-            'personal_access_client' => false,
-            'password_client' => true,
+            'redirect_uris' => 'http://localhost',
+            'grant_types' => 'password',
             'revoked' => false,
         ]);
         echo 'OAuth clients created successfully';
