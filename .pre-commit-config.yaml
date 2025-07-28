@@ -8,7 +8,7 @@ repos:
       # Laravel Pint - Code Style Formatting
       - id: laravel-pint
         name: Laravel Pint (Code Style)
-        entry: docker-compose -f compose.dev.yaml exec -T workspace ./vendor/bin/pint
+        entry: docker compose -f compose.dev.yaml exec -T workspace ./vendor/bin/pint
         language: system
         files: \.php$
         pass_filenames: false
@@ -18,7 +18,7 @@ repos:
       # PHPStan - Static Analysis
       - id: phpstan
         name: PHPStan (Static Analysis)
-        entry: docker-compose -f compose.dev.yaml exec -T workspace ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+        entry: docker compose -f compose.dev.yaml exec -T workspace ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
         language: system
         files: \.php$
         pass_filenames: false
@@ -28,7 +28,7 @@ repos:
       # PHP Unit Tests
       - id: phpunit
         name: PHPUnit (Unit Tests)
-        entry: docker-compose -f compose.dev.yaml exec -T workspace ./vendor/bin/phpunit --configuration=phpunit.precommit.xml --stop-on-failure
+        entry: docker compose -f compose.dev.yaml exec -T workspace ./vendor/bin/phpunit --configuration=phpunit.precommit.xml --stop-on-failure
         language: system
         files: \.php$
         pass_filenames: false
@@ -38,7 +38,7 @@ repos:
       # Composer Security Audit
       - id: composer-audit
         name: Composer Security Audit
-        entry: docker-compose -f compose.dev.yaml exec -T workspace composer audit
+        entry: docker compose -f compose.dev.yaml exec -T workspace composer audit
         language: system
         files: composer\.(json|lock)$
         pass_filenames: false
@@ -85,7 +85,7 @@ repos:
       # ESLint for JavaScript
       - id: eslint
         name: ESLint (JavaScript Linter)
-        entry: docker-compose -f compose.dev.yaml exec -T workspace npm run lint
+        entry: docker compose -f compose.dev.yaml exec -T workspace npm run lint
         language: system
         files: \.(js|ts|vue)$
         pass_filenames: false
@@ -97,7 +97,7 @@ repos:
       # Prettier for code formatting
       - id: prettier
         name: Prettier (Code Formatter)
-        entry: docker-compose -f compose.dev.yaml exec -T workspace npx prettier --write
+        entry: docker compose -f compose.dev.yaml exec -T workspace npx prettier --write
         language: system
         files: \.(js|ts|vue|css|scss|json|md)$
         stages: [pre-commit]

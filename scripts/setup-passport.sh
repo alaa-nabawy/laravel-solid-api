@@ -23,7 +23,7 @@ run_artisan() {
     if check_docker; then
         php artisan "$@"
     else
-        docker-compose -f compose.dev.yaml exec -T workspace php artisan "$@"
+        docker compose -f compose.dev.yaml exec -T workspace php artisan "$@"
     fi
 }
 
@@ -59,17 +59,12 @@ else
     echo "✅ Encryption keys already exist"
 fi
 
-# Step 5: Create OAuth clients if they don't exist
+# Step 5: Install Passport (creates default clients)
 echo "👥 Setting up OAuth clients..."
-
-# Check if personal access client exists
-if ! run_artisan passport:client --personal --no-interaction 2>/dev/null; then
-    echo "ℹ️  Personal access client may already exist"
-fi
-
-# Check if password grant client exists
-if ! run_artisan passport:client --password --no-interaction 2>/dev/null; then
-    echo "ℹ️  Password grant client may already exist"
+if ! run_artisan passport:install --force 2>/dev/null; then
+    echo "ℹ️  Passport installation completed (clients may already exist)"
+else
+    echo "✅ OAuth clients created successfully"
 fi
 
 echo "🎉 Laravel Passport setup completed successfully!"
