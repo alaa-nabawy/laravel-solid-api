@@ -28,7 +28,7 @@ repos:
       # PHP Unit Tests
       - id: phpunit
         name: PHPUnit (Unit Tests)
-        entry: docker-compose -f compose.dev.yaml exec -T workspace php artisan test --stop-on-failure
+        entry: docker-compose -f compose.dev.yaml exec -T workspace ./vendor/bin/phpunit --configuration=phpunit.precommit.xml --stop-on-failure
         language: system
         files: \.php$
         pass_filenames: false

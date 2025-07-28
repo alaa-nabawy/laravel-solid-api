@@ -120,6 +120,9 @@ composer-update: ## Update composer dependencies
 	docker compose -f compose.dev.yaml exec workspace composer update
 
 # Laravel Passport
+passport-setup: ## Setup Laravel Passport
+	docker compose -f compose.dev.yaml exec workspace ./scripts/setup-passport.sh
+
 passport-install: ## Install Laravel Passport
 	docker compose -f compose.dev.yaml exec workspace php artisan passport:install
 
@@ -154,7 +157,7 @@ setup: ## Initial setup for development
 	make npm-install
 	make artisan cmd="key:generate"
 	make migrate
-	make passport-install
+	docker compose -f compose.dev.yaml exec workspace ./scripts/setup-passport.sh
 	@echo "Setting up pre-commit hooks..."
 	make setup-pre-commit
 	@echo "Setup complete! Visit http://localhost:8000"
@@ -167,6 +170,7 @@ setup-prod: ## Initial setup for production
 	@echo "Waiting for services to start..."
 	sleep 15
 	make artisan-prod cmd="migrate --force"
+	docker compose -f compose.prod.yaml exec app ./scripts/setup-passport.sh
 	make artisan-prod cmd="config:cache"
 	make artisan-prod cmd="route:cache"
 	make artisan-prod cmd="view:cache"

@@ -28,3 +28,7 @@ Thumbs.db
 .secrets.baseline
 
 /coverage-html
+
+# OAuth Keys
+/storage/oauth-keys/
+oauth-*.key

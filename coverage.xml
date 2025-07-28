@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1753711133">
-  <project timestamp="1753711133" name="Clover Coverage">
+<coverage generated="1753712392">
+  <project timestamp="1753712392" name="Clover Coverage">
     <package name="App\Console\Commands">
       <file name="/var/www/html/app/Console/Commands/MakeRouteGroup.php">
         <class name="App\Console\Commands\MakeRouteGroup" namespace="App\Console\Commands">
@@ -233,15 +233,18 @@
     <package name="App\Providers">
       <file name="/var/www/html/app/Providers/AppServiceProvider.php">
         <class name="App\Providers\AppServiceProvider" namespace="App\Providers">
-          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
         </class>
-        <line num="12" type="method" name="register" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="15" type="stmt" count="1"/>
-        <line num="20" type="method" name="boot" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="23" type="stmt" count="1"/>
-        <metrics loc="25" ncloc="17" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="16" type="stmt" count="1"/>
+        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="24" type="stmt" count="1"/>
+        <line num="27" type="stmt" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <metrics loc="32" ncloc="23" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
       </file>
     </package>
-    <metrics files="5" loc="482" ncloc="415" classes="4" methods="14" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="189" coveredstatements="2" elements="203" coveredelements="4"/>
+    <metrics files="5" loc="489" ncloc="421" classes="4" methods="14" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="192" coveredstatements="5" elements="206" coveredelements="7"/>
   </project>
 </coverage>

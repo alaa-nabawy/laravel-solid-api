@@ -14,7 +14,7 @@ jobs:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_PASSWORD: secret
+          POSTGRES_PASSWORD: secret  # pragma: allowlist secret
           POSTGRES_USER: laravel
           POSTGRES_DB: laravel_test
         options: >-
@@ -74,10 +74,10 @@ jobs:
         DB_PORT: 5432
         DB_DATABASE: laravel_test
         DB_USERNAME: laravel
-        DB_PASSWORD: secret
+        DB_PASSWORD: secret  # pragma: allowlist secret
 
-    - name: Install Laravel Passport
-      run: php artisan passport:install --force
+    - name: Setup Laravel Passport
+      run: ./scripts/setup-passport.sh
 
     - name: Run PHPStan
       run: ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
@@ -93,7 +93,7 @@ jobs:
         DB_PORT: 5432
         DB_DATABASE: laravel_test
         DB_USERNAME: laravel
-        DB_PASSWORD: secret
+        DB_PASSWORD: secret  # pragma: allowlist secret
         REDIS_HOST: localhost
         REDIS_PORT: 6379
 
