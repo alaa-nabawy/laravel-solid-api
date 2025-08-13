@@ -12,6 +12,7 @@ Welcome to the Laravel API SOLID documentation. This directory contains comprehe
 - [Route Generation](./general/route-generation.md) - Complete guide to the enhanced route generation commands
 - [Code Quality Tools](./general/code-quality-tools.md) - Comprehensive guide to code quality scripts and tools
 - [Pre-commit Setup](./general/pre-commit-setup.md) - Pre-commit hooks configuration and usage
+- [Rate Limiting](./general/rate-limiting.md) - Comprehensive rate limiting system with role-based controls
 
 ### API Documentation
 
