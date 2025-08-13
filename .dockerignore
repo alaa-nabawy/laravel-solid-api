@@ -72,7 +72,7 @@ bootstrap/cache/*
 *.temp
 
 # Package managers
-package-lock.json
+# package-lock.json - needed for npm ci in Docker builds
 yarn.lock
 # composer.lock - needed for production builds
 
@@ -80,7 +80,7 @@ yarn.lock
 .editorconfig
 .eslintrc*
 .prettierrc*
-vite.config.js
+# vite.config.js - needed for Docker builds
 webpack.mix.js
 tailwind.config.js
 postcss.config.js
