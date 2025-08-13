@@ -44,33 +44,31 @@ The following components have been created to demonstrate Scramble's capabilitie
 
 ### Controllers
 
-#### UserController (`app/Http/Controllers/Api/UserController.php`)
+#### AuthController (`app/Http/Controllers/Api/AuthController.php`)
 
-A complete CRUD controller for user management with the following endpoints:
+A complete authentication controller with the following endpoints:
 
-- `GET /api/v1/users` - List users with search and pagination
-- `POST /api/v1/users` - Create a new user
-- `GET /api/v1/users/{user}` - Show a specific user
-- `PUT/PATCH /api/v1/users/{user}` - Update a user
-- `DELETE /api/v1/users/{user}` - Delete a user
+- `POST /api/v1/auth/login` - User login
+- `POST /api/v1/auth/signup` - User registration
+- `POST /api/v1/auth/logout` - User logout (authenticated)
+- `GET /api/v1/auth/me` - Get current user information (authenticated)
 
 ### Form Requests
 
-#### StoreUserRequest (`app/Http/Requests/StoreUserRequest.php`)
+#### LoginRequest (`app/Http/Requests/Auth/Api/LoginRequest.php`)
 
-Validation rules for creating users:
+Validation rules for user login:
+
+- `email`: Required, valid email address
+- `password`: Required string
+
+#### SignupRequest (`app/Http/Requests/Auth/Api/SignupRequest.php`)
+
+Validation rules for user registration:
 
 - `name`: Required string, max 255 characters
 - `email`: Required, unique email address
 - `password`: Required, confirmed, follows Laravel password rules
-
-#### UpdateUserRequest (`app/Http/Requests/UpdateUserRequest.php`)
-
-Validation rules for updating users:
-
-- `name`: Optional string, max 255 characters
-- `email`: Optional, unique email address (ignores current user)
-- `password`: Optional, confirmed, follows Laravel password rules
 
 ### API Resources
 
@@ -89,11 +87,14 @@ The API routes are defined in `routes/api.php`:
 ### Public Routes
 
 - `GET /api/health` - Health check endpoint
-- `GET|POST|PUT|DELETE /api/v1/users` - User CRUD operations
+- `POST /api/v1/auth/login` - User login
+- `POST /api/v1/auth/signup` - User registration
 
 ### Authenticated Routes
 
-- `GET /api/user` - Get current authenticated user
+- `POST /api/v1/auth/logout` - User logout
+- `GET /api/v1/auth/me` - Get current user information
+- `GET /api/user` - Get current authenticated user (legacy route)
 
 ## Accessing Documentation
 
@@ -144,11 +145,11 @@ Scramble automatically analyzes your Laravel application to generate documentati
 ### 1. Use FormRequest Classes
 
 ```php
-public function store(StoreUserRequest $request): UserResource
+public function signup(SignupRequest $request): JsonResponse
 {
     // Scramble automatically documents validation rules
     $user = User::create($request->validated());
-    return new UserResource($user);
+    return response()->json(['message' => 'User created successfully']);
 }
 ```
 
@@ -172,16 +173,17 @@ class UserResource extends JsonResource
 ### 3. Proper Return Type Hints
 
 ```php
-public function index(Request $request): AnonymousResourceCollection
-public function show(User $user): UserResource
-public function destroy(User $user): JsonResponse
+public function login(LoginRequest $request): JsonResponse
+public function signup(SignupRequest $request): JsonResponse
+public function me(Request $request): UserResource
 ```
 
 ### 4. Route Model Binding
 
 ```php
-// Automatically documented as {user} parameter
-Route::apiResource('users', UserController::class);
+// Authentication routes with proper parameter documentation
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/signup', [AuthController::class, 'signup']);
 ```
 
 ## Customization Options

@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1753712392">
-  <project timestamp="1753712392" name="Clover Coverage">
+<coverage generated="1755083936">
+  <project timestamp="1755083936" name="Clover Coverage">
     <package name="App\Console\Commands">
       <file name="/var/www/html/app/Console/Commands/MakeRouteGroup.php">
         <class name="App\Console\Commands\MakeRouteGroup" namespace="App\Console\Commands">
-          <metrics complexity="37" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="128" coveredstatements="0" elements="135" coveredelements="0"/>
+          <metrics complexity="37" methods="7" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="128" coveredstatements="61" elements="135" coveredelements="63"/>
         </class>
-        <line num="15" type="method" name="handle" visibility="public" complexity="3" crap="12" count="0"/>
-        <line num="17" type="stmt" count="0"/>
-        <line num="18" type="stmt" count="0"/>
-        <line num="19" type="stmt" count="0"/>
-        <line num="21" type="stmt" count="0"/>
-        <line num="24" type="stmt" count="0"/>
-        <line num="27" type="stmt" count="0"/>
-        <line num="30" type="stmt" count="0"/>
-        <line num="32" type="stmt" count="0"/>
-        <line num="35" type="method" name="createRouteFile" visibility="protected" complexity="3" crap="12" count="0"/>
-        <line num="37" type="stmt" count="0"/>
-        <line num="38" type="stmt" count="0"/>
-        <line num="40" type="stmt" count="0"/>
-        <line num="41" type="stmt" count="0"/>
-        <line num="43" type="stmt" count="0"/>
-        <line num="46" type="stmt" count="0"/>
-        <line num="47" type="stmt" count="0"/>
-        <line num="49" type="stmt" count="0"/>
-        <line num="50" type="stmt" count="0"/>
-        <line num="51" type="stmt" count="0"/>
+        <line num="15" type="method" name="handle" visibility="public" complexity="3" crap="3" count="4"/>
+        <line num="17" type="stmt" count="4"/>
+        <line num="18" type="stmt" count="4"/>
+        <line num="19" type="stmt" count="4"/>
+        <line num="21" type="stmt" count="4"/>
+        <line num="24" type="stmt" count="4"/>
+        <line num="27" type="stmt" count="4"/>
+        <line num="30" type="stmt" count="4"/>
+        <line num="32" type="stmt" count="4"/>
+        <line num="35" type="method" name="createRouteFile" visibility="protected" complexity="3" crap="3.02" count="4"/>
+        <line num="37" type="stmt" count="4"/>
+        <line num="38" type="stmt" count="4"/>
+        <line num="40" type="stmt" count="4"/>
+        <line num="41" type="stmt" count="1"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="46" type="stmt" count="3"/>
+        <line num="47" type="stmt" count="3"/>
+        <line num="49" type="stmt" count="3"/>
+        <line num="50" type="stmt" count="3"/>
+        <line num="51" type="stmt" count="3"/>
         <line num="53" type="stmt" count="0"/>
         <line num="54" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="60" type="stmt" count="0"/>
-        <line num="61" type="stmt" count="0"/>
-        <line num="64" type="method" name="addMiddlewareGroup" visibility="protected" complexity="6" crap="42" count="0"/>
-        <line num="66" type="stmt" count="0"/>
-        <line num="67" type="stmt" count="0"/>
-        <line num="70" type="stmt" count="0"/>
-        <line num="71" type="stmt" count="0"/>
-        <line num="73" type="stmt" count="0"/>
+        <line num="58" type="stmt" count="3"/>
+        <line num="60" type="stmt" count="3"/>
+        <line num="61" type="stmt" count="3"/>
+        <line num="64" type="method" name="addMiddlewareGroup" visibility="protected" complexity="6" crap="19.56" count="4"/>
+        <line num="66" type="stmt" count="4"/>
+        <line num="67" type="stmt" count="4"/>
+        <line num="70" type="stmt" count="4"/>
+        <line num="71" type="stmt" count="4"/>
+        <line num="73" type="stmt" count="4"/>
         <line num="77" type="stmt" count="0"/>
         <line num="79" type="stmt" count="0"/>
         <line num="80" type="stmt" count="0"/>
@@ -50,13 +50,13 @@
         <line num="95" type="stmt" count="0"/>
         <line num="97" type="stmt" count="0"/>
         <line num="100" type="stmt" count="0"/>
-        <line num="104" type="method" name="registerRouteGroup" visibility="protected" complexity="15" crap="240" count="0"/>
-        <line num="106" type="stmt" count="0"/>
-        <line num="107" type="stmt" count="0"/>
-        <line num="108" type="stmt" count="0"/>
-        <line num="111" type="stmt" count="0"/>
-        <line num="112" type="stmt" count="0"/>
-        <line num="114" type="stmt" count="0"/>
+        <line num="104" type="method" name="registerRouteGroup" visibility="protected" complexity="15" crap="174.10" count="4"/>
+        <line num="106" type="stmt" count="4"/>
+        <line num="107" type="stmt" count="4"/>
+        <line num="108" type="stmt" count="4"/>
+        <line num="111" type="stmt" count="4"/>
+        <line num="112" type="stmt" count="4"/>
+        <line num="114" type="stmt" count="4"/>
         <line num="118" type="stmt" count="0"/>
         <line num="121" type="stmt" count="0"/>
         <line num="122" type="stmt" count="0"/>
@@ -106,109 +106,138 @@
         <line num="199" type="stmt" count="0"/>
         <line num="201" type="stmt" count="0"/>
         <line num="202" type="stmt" count="0"/>
-        <line num="206" type="method" name="findMatchingBrace" visibility="protected" complexity="5" crap="30" count="0"/>
-        <line num="208" type="stmt" count="0"/>
-        <line num="209" type="stmt" count="0"/>
-        <line num="211" type="stmt" count="0"/>
-        <line num="212" type="stmt" count="0"/>
-        <line num="213" type="stmt" count="0"/>
-        <line num="214" type="stmt" count="0"/>
-        <line num="215" type="stmt" count="0"/>
-        <line num="216" type="stmt" count="0"/>
-        <line num="217" type="stmt" count="0"/>
-        <line num="218" type="stmt" count="0"/>
-        <line num="221" type="stmt" count="0"/>
+        <line num="206" type="method" name="findMatchingBrace" visibility="protected" complexity="5" crap="5.01" count="1"/>
+        <line num="208" type="stmt" count="1"/>
+        <line num="209" type="stmt" count="1"/>
+        <line num="211" type="stmt" count="1"/>
+        <line num="212" type="stmt" count="1"/>
+        <line num="213" type="stmt" count="1"/>
+        <line num="214" type="stmt" count="1"/>
+        <line num="215" type="stmt" count="1"/>
+        <line num="216" type="stmt" count="1"/>
+        <line num="217" type="stmt" count="1"/>
+        <line num="218" type="stmt" count="1"/>
+        <line num="221" type="stmt" count="1"/>
         <line num="224" type="stmt" count="0"/>
-        <line num="227" type="method" name="ensureRouteImport" visibility="protected" complexity="4" crap="20" count="0"/>
-        <line num="230" type="stmt" count="0"/>
-        <line num="231" type="stmt" count="0"/>
-        <line num="235" type="stmt" count="0"/>
-        <line num="236" type="stmt" count="0"/>
+        <line num="227" type="method" name="ensureRouteImport" visibility="protected" complexity="4" crap="4.06" count="1"/>
+        <line num="230" type="stmt" count="1"/>
+        <line num="231" type="stmt" count="1"/>
+        <line num="235" type="stmt" count="1"/>
+        <line num="236" type="stmt" count="1"/>
         <line num="237" type="stmt" count="0"/>
-        <line num="241" type="stmt" count="0"/>
-        <line num="242" type="stmt" count="0"/>
+        <line num="241" type="stmt" count="1"/>
+        <line num="242" type="stmt" count="1"/>
         <line num="243" type="stmt" count="0"/>
-        <line num="247" type="stmt" count="0"/>
-        <line num="248" type="stmt" count="0"/>
-        <line num="250" type="stmt" count="0"/>
-        <line num="252" type="stmt" count="0"/>
-        <line num="254" type="stmt" count="0"/>
-        <line num="257" type="method" name="validatePhpSyntax" visibility="protected" complexity="1" crap="2" count="0"/>
-        <line num="259" type="stmt" count="0"/>
-        <line num="260" type="stmt" count="0"/>
-        <line num="262" type="stmt" count="0"/>
-        <line num="263" type="stmt" count="0"/>
-        <line num="264" type="stmt" count="0"/>
-        <line num="266" type="stmt" count="0"/>
-        <line num="268" type="stmt" count="0"/>
-        <metrics loc="271" ncloc="249" classes="1" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="128" coveredstatements="0" elements="135" coveredelements="0"/>
+        <line num="247" type="stmt" count="1"/>
+        <line num="248" type="stmt" count="1"/>
+        <line num="250" type="stmt" count="1"/>
+        <line num="252" type="stmt" count="1"/>
+        <line num="254" type="stmt" count="1"/>
+        <line num="257" type="method" name="validatePhpSyntax" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="259" type="stmt" count="1"/>
+        <line num="260" type="stmt" count="1"/>
+        <line num="262" type="stmt" count="1"/>
+        <line num="263" type="stmt" count="1"/>
+        <line num="264" type="stmt" count="1"/>
+        <line num="266" type="stmt" count="1"/>
+        <line num="268" type="stmt" count="1"/>
+        <metrics loc="271" ncloc="249" classes="1" methods="7" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="128" coveredstatements="61" elements="135" coveredelements="63"/>
       </file>
       <file name="/var/www/html/app/Console/Commands/MakeStructure.php">
         <class name="App\Console\Commands\MakeStructure" namespace="App\Console\Commands">
-          <metrics complexity="9" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="55" coveredstatements="0" elements="59" coveredelements="0"/>
+          <metrics complexity="9" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="56" coveredstatements="56" elements="60" coveredelements="60"/>
         </class>
-        <line num="27" type="method" name="handle" visibility="public" complexity="4" crap="20" count="0"/>
-        <line num="29" type="stmt" count="0"/>
-        <line num="30" type="stmt" count="0"/>
-        <line num="31" type="stmt" count="0"/>
-        <line num="34" type="stmt" count="0"/>
-        <line num="35" type="stmt" count="0"/>
-        <line num="38" type="stmt" count="0"/>
-        <line num="39" type="stmt" count="0"/>
-        <line num="42" type="stmt" count="0"/>
-        <line num="43" type="stmt" count="0"/>
-        <line num="45" type="stmt" count="0"/>
-        <line num="46" type="stmt" count="0"/>
-        <line num="47" type="stmt" count="0"/>
-        <line num="48" type="stmt" count="0"/>
-        <line num="49" type="stmt" count="0"/>
-        <line num="53" type="stmt" count="0"/>
-        <line num="54" type="stmt" count="0"/>
-        <line num="55" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="61" type="stmt" count="0"/>
-        <line num="62" type="stmt" count="0"/>
-        <line num="63" type="stmt" count="0"/>
-        <line num="64" type="stmt" count="0"/>
-        <line num="66" type="stmt" count="0"/>
-        <line num="67" type="stmt" count="0"/>
-        <line num="69" type="stmt" count="0"/>
-        <line num="72" type="stmt" count="0"/>
-        <line num="73" type="stmt" count="0"/>
-        <line num="75" type="stmt" count="0"/>
-        <line num="78" type="method" name="getStubContent" visibility="protected" complexity="1" crap="2" count="0"/>
-        <line num="80" type="stmt" count="0"/>
-        <line num="81" type="stmt" count="0"/>
-        <line num="84" type="stmt" count="0"/>
-        <line num="85" type="stmt" count="0"/>
-        <line num="86" type="stmt" count="0"/>
-        <line num="87" type="stmt" count="0"/>
-        <line num="88" type="stmt" count="0"/>
-        <line num="90" type="stmt" count="0"/>
-        <line num="93" type="method" name="generateService" visibility="protected" complexity="2" crap="6" count="0"/>
-        <line num="95" type="stmt" count="0"/>
-        <line num="97" type="stmt" count="0"/>
-        <line num="98" type="stmt" count="0"/>
-        <line num="99" type="stmt" count="0"/>
-        <line num="100" type="stmt" count="0"/>
-        <line num="101" type="stmt" count="0"/>
-        <line num="102" type="stmt" count="0"/>
-        <line num="104" type="stmt" count="0"/>
-        <line num="107" type="stmt" count="0"/>
-        <line num="110" type="method" name="generateRepository" visibility="protected" complexity="2" crap="6" count="0"/>
-        <line num="112" type="stmt" count="0"/>
-        <line num="113" type="stmt" count="0"/>
-        <line num="115" type="stmt" count="0"/>
-        <line num="116" type="stmt" count="0"/>
-        <line num="117" type="stmt" count="0"/>
-        <line num="118" type="stmt" count="0"/>
-        <line num="119" type="stmt" count="0"/>
-        <line num="120" type="stmt" count="0"/>
-        <line num="122" type="stmt" count="0"/>
-        <line num="125" type="stmt" count="0"/>
-        <metrics loc="128" ncloc="109" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="55" coveredstatements="0" elements="59" coveredelements="0"/>
+        <line num="27" type="method" name="handle" visibility="public" complexity="4" crap="4" count="5"/>
+        <line num="29" type="stmt" count="5"/>
+        <line num="30" type="stmt" count="5"/>
+        <line num="31" type="stmt" count="5"/>
+        <line num="34" type="stmt" count="5"/>
+        <line num="35" type="stmt" count="5"/>
+        <line num="38" type="stmt" count="5"/>
+        <line num="39" type="stmt" count="5"/>
+        <line num="42" type="stmt" count="5"/>
+        <line num="43" type="stmt" count="5"/>
+        <line num="45" type="stmt" count="5"/>
+        <line num="46" type="stmt" count="3"/>
+        <line num="47" type="stmt" count="3"/>
+        <line num="48" type="stmt" count="3"/>
+        <line num="49" type="stmt" count="3"/>
+        <line num="53" type="stmt" count="5"/>
+        <line num="54" type="stmt" count="5"/>
+        <line num="55" type="stmt" count="5"/>
+        <line num="58" type="stmt" count="5"/>
+        <line num="61" type="stmt" count="5"/>
+        <line num="62" type="stmt" count="4"/>
+        <line num="63" type="stmt" count="4"/>
+        <line num="64" type="stmt" count="4"/>
+        <line num="66" type="stmt" count="4"/>
+        <line num="67" type="stmt" count="4"/>
+        <line num="69" type="stmt" count="4"/>
+        <line num="72" type="stmt" count="5"/>
+        <line num="73" type="stmt" count="5"/>
+        <line num="75" type="stmt" count="5"/>
+        <line num="78" type="method" name="getStubContent" visibility="protected" complexity="1" crap="1" count="6"/>
+        <line num="80" type="stmt" count="6"/>
+        <line num="81" type="stmt" count="6"/>
+        <line num="84" type="stmt" count="6"/>
+        <line num="85" type="stmt" count="6"/>
+        <line num="86" type="stmt" count="6"/>
+        <line num="87" type="stmt" count="6"/>
+        <line num="88" type="stmt" count="6"/>
+        <line num="90" type="stmt" count="6"/>
+        <line num="93" type="method" name="generateService" visibility="protected" complexity="2" crap="2" count="1"/>
+        <line num="95" type="stmt" count="1"/>
+        <line num="97" type="stmt" count="1"/>
+        <line num="99" type="stmt" count="1"/>
+        <line num="101" type="stmt" count="1"/>
+        <line num="102" type="stmt" count="1"/>
+        <line num="103" type="stmt" count="1"/>
+        <line num="104" type="stmt" count="1"/>
+        <line num="105" type="stmt" count="1"/>
+        <line num="107" type="stmt" count="1"/>
+        <line num="110" type="stmt" count="1"/>
+        <line num="113" type="method" name="generateRepository" visibility="protected" complexity="2" crap="2" count="1"/>
+        <line num="115" type="stmt" count="1"/>
+        <line num="116" type="stmt" count="1"/>
+        <line num="118" type="stmt" count="1"/>
+        <line num="119" type="stmt" count="1"/>
+        <line num="120" type="stmt" count="1"/>
+        <line num="121" type="stmt" count="1"/>
+        <line num="122" type="stmt" count="1"/>
+        <line num="123" type="stmt" count="1"/>
+        <line num="125" type="stmt" count="1"/>
+        <line num="128" type="stmt" count="1"/>
+        <metrics loc="131" ncloc="111" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="56" coveredstatements="56" elements="60" coveredelements="60"/>
       </file>
     </package>
+    <package name="App\Http\Controllers\Api">
+      <file name="/var/www/html/app/Http/Controllers/Api/AuthController.php">
+        <class name="App\Http\Controllers\Api\AuthController" namespace="App\Http\Controllers\Api">
+          <metrics complexity="7" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="11" elements="17" coveredelements="14"/>
+        </class>
+        <line num="25" type="method" name="login" visibility="public" complexity="2" crap="2" count="3"/>
+        <line num="28" type="stmt" count="3"/>
+        <line num="30" type="stmt" count="2"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <line num="41" type="method" name="signup" visibility="public" complexity="2" crap="2.50" count="1"/>
+        <line num="44" type="stmt" count="1"/>
+        <line num="46" type="stmt" count="1"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="55" type="method" name="logout" visibility="public" complexity="2" crap="2" count="1"/>
+        <line num="57" type="stmt" count="1"/>
+        <line num="59" type="stmt" count="1"/>
+        <line num="60" type="stmt" count="1"/>
+        <line num="63" type="stmt" count="1"/>
+        <line num="69" type="method" name="me" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="71" type="stmt" count="1"/>
+        <metrics loc="74" ncloc="58" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="11" elements="17" coveredelements="14"/>
+      </file>
+    </package>
+    <file name="/var/www/html/app/Http/Controllers/Api/UserController.php">
+      <metrics loc="1" ncloc="1" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
     <package name="App\Http\Controllers">
       <file name="/var/www/html/app/Http/Controllers/Controller.php">
         <class name="App\Http\Controllers\Controller" namespace="App\Http\Controllers">
@@ -217,17 +246,125 @@
         <metrics loc="9" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
       </file>
     </package>
+    <package name="App\Http\Requests\Auth\Api">
+      <file name="/var/www/html/app/Http/Requests/Auth/Api/LoginRequest.php">
+        <class name="App\Http\Requests\Auth\Api\LoginRequest" namespace="App\Http\Requests\Auth\Api">
+          <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
+        </class>
+        <line num="12" type="method" name="authorize" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="14" type="stmt" count="5"/>
+        <line num="22" type="method" name="rules" visibility="public" complexity="1" crap="1" count="11"/>
+        <line num="24" type="stmt" count="11"/>
+        <line num="25" type="stmt" count="11"/>
+        <line num="26" type="stmt" count="11"/>
+        <line num="27" type="stmt" count="11"/>
+        <line num="35" type="method" name="messages" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="37" type="stmt" count="6"/>
+        <line num="38" type="stmt" count="6"/>
+        <line num="39" type="stmt" count="6"/>
+        <line num="40" type="stmt" count="6"/>
+        <line num="41" type="stmt" count="6"/>
+        <metrics loc="44" ncloc="31" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
+      </file>
+      <file name="/var/www/html/app/Http/Requests/Auth/Api/SignupRequest.php">
+        <class name="App\Http\Requests\Auth\Api\SignupRequest" namespace="App\Http\Requests\Auth\Api">
+          <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="21" coveredelements="21"/>
+        </class>
+        <line num="12" type="method" name="authorize" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="14" type="stmt" count="5"/>
+        <line num="22" type="method" name="rules" visibility="public" complexity="1" crap="1" count="16"/>
+        <line num="24" type="stmt" count="16"/>
+        <line num="25" type="stmt" count="16"/>
+        <line num="26" type="stmt" count="16"/>
+        <line num="27" type="stmt" count="16"/>
+        <line num="28" type="stmt" count="16"/>
+        <line num="29" type="stmt" count="16"/>
+        <line num="37" type="method" name="messages" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="39" type="stmt" count="6"/>
+        <line num="40" type="stmt" count="6"/>
+        <line num="41" type="stmt" count="6"/>
+        <line num="42" type="stmt" count="6"/>
+        <line num="43" type="stmt" count="6"/>
+        <line num="44" type="stmt" count="6"/>
+        <line num="45" type="stmt" count="6"/>
+        <line num="46" type="stmt" count="6"/>
+        <line num="47" type="stmt" count="6"/>
+        <line num="48" type="stmt" count="6"/>
+        <line num="49" type="stmt" count="6"/>
+        <metrics loc="52" ncloc="39" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="21" coveredelements="21"/>
+      </file>
+    </package>
+    <package name="App\Http\Resources\Auth\Api">
+      <file name="/var/www/html/app/Http/Resources/Auth/Api/UserResource.php">
+        <class name="App\Http\Resources\Auth\Api\UserResource" namespace="App\Http\Resources\Auth\Api">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="8" coveredelements="8"/>
+        </class>
+        <line num="19" type="method" name="toArray" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="21" type="stmt" count="4"/>
+        <line num="22" type="stmt" count="4"/>
+        <line num="23" type="stmt" count="4"/>
+        <line num="24" type="stmt" count="4"/>
+        <line num="25" type="stmt" count="4"/>
+        <line num="26" type="stmt" count="4"/>
+        <line num="27" type="stmt" count="4"/>
+        <metrics loc="30" ncloc="22" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="8" coveredelements="8"/>
+      </file>
+    </package>
+    <package name="App\Http\Resources">
+      <file name="/var/www/html/app/Http/Resources/UserResource.php">
+        <class name="App\Http\Resources\UserResource" namespace="App\Http\Resources">
+          <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="12" coveredelements="12"/>
+        </class>
+        <line num="19" type="method" name="toArray" visibility="public" complexity="2" crap="2" count="4"/>
+        <line num="21" type="stmt" count="4"/>
+        <line num="22" type="stmt" count="4"/>
+        <line num="23" type="stmt" count="4"/>
+        <line num="24" type="stmt" count="4"/>
+        <line num="25" type="stmt" count="4"/>
+        <line num="26" type="stmt" count="4"/>
+        <line num="27" type="stmt" count="4"/>
+        <line num="28" type="stmt" count="4"/>
+        <line num="31" type="stmt" count="4"/>
+        <line num="32" type="stmt" count="2"/>
+        <line num="35" type="stmt" count="4"/>
+        <metrics loc="38" ncloc="29" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="12" coveredelements="12"/>
+      </file>
+    </package>
+    <package name="App\Models\Passport">
+      <file name="/var/www/html/app/Models/Passport/Client.php">
+        <class name="App\Models\Passport\Client" namespace="App\Models\Passport">
+          <metrics complexity="12" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="16" coveredelements="16"/>
+        </class>
+        <line num="25" type="method" name="getRedirectAttribute" visibility="public" complexity="4" crap="4" count="3"/>
+        <line num="27" type="stmt" count="3"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="2"/>
+        <line num="39" type="method" name="setRedirectAttribute" visibility="public" complexity="2" crap="2" count="2"/>
+        <line num="41" type="stmt" count="2"/>
+        <line num="42" type="stmt" count="1"/>
+        <line num="44" type="stmt" count="1"/>
+        <line num="53" type="method" name="getGrantTypesAttribute" visibility="public" complexity="4" crap="4" count="3"/>
+        <line num="55" type="stmt" count="3"/>
+        <line num="56" type="stmt" count="1"/>
+        <line num="59" type="stmt" count="2"/>
+        <line num="67" type="method" name="setGrantTypesAttribute" visibility="public" complexity="2" crap="2" count="21"/>
+        <line num="69" type="stmt" count="21"/>
+        <line num="70" type="stmt" count="20"/>
+        <line num="72" type="stmt" count="1"/>
+        <metrics loc="76" ncloc="51" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="16" coveredelements="16"/>
+      </file>
+    </package>
     <package name="App\Models">
       <file name="/var/www/html/app/Models/User.php">
         <class name="App\Models\User" namespace="App\Models">
-          <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="5" coveredelements="0"/>
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
         </class>
-        <line num="41" type="method" name="casts" visibility="protected" complexity="1" crap="2" count="0"/>
-        <line num="43" type="stmt" count="0"/>
-        <line num="44" type="stmt" count="0"/>
-        <line num="45" type="stmt" count="0"/>
-        <line num="46" type="stmt" count="0"/>
-        <metrics loc="49" ncloc="32" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="5" coveredelements="0"/>
+        <line num="42" type="method" name="casts" visibility="protected" complexity="1" crap="1" count="15"/>
+        <line num="44" type="stmt" count="15"/>
+        <line num="45" type="stmt" count="15"/>
+        <line num="46" type="stmt" count="15"/>
+        <line num="47" type="stmt" count="15"/>
+        <metrics loc="50" ncloc="33" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
       </file>
     </package>
     <package name="App\Providers">
@@ -235,16 +372,166 @@
         <class name="App\Providers\AppServiceProvider" namespace="App\Providers">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
         </class>
-        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="16" type="stmt" count="1"/>
-        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="24" type="stmt" count="1"/>
-        <line num="27" type="stmt" count="1"/>
-        <line num="28" type="stmt" count="1"/>
-        <line num="29" type="stmt" count="1"/>
-        <metrics loc="32" ncloc="23" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="85"/>
+        <line num="18" type="method" name="boot" visibility="public" complexity="1" crap="1" count="85"/>
+        <line num="21" type="stmt" count="85"/>
+        <line num="24" type="stmt" count="85"/>
+        <line num="25" type="stmt" count="85"/>
+        <line num="26" type="stmt" count="85"/>
+        <metrics loc="30" ncloc="22" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+      </file>
+      <file name="/var/www/html/app/Providers/AuthServiceProvider.php">
+        <class name="App\Providers\AuthServiceProvider" namespace="App\Providers">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
+        </class>
+        <line num="22" type="method" name="boot" visibility="public" complexity="1" crap="1" count="85"/>
+        <line num="24" type="stmt" count="85"/>
+        <line num="27" type="stmt" count="85"/>
+        <line num="28" type="stmt" count="85"/>
+        <line num="29" type="stmt" count="85"/>
+        <metrics loc="32" ncloc="23" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
       </file>
     </package>
-    <metrics files="5" loc="489" ncloc="421" classes="4" methods="14" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="192" coveredstatements="5" elements="206" coveredelements="7"/>
+    <package name="App\Repositories">
+      <file name="/var/www/html/app/Repositories/UserRepository.php">
+        <class name="App\Repositories\UserRepository" namespace="App\Repositories">
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        </class>
+        <line num="16" type="method" name="model" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="18" type="stmt" count="5"/>
+        <line num="24" type="method" name="boot" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="26" type="stmt" count="5"/>
+        <metrics loc="29" ncloc="21" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </file>
+    </package>
+    <package name="App\Services\Auth\Api">
+      <file name="/var/www/html/app/Services/Auth/Api/LoginService.php">
+        <class name="App\Services\Auth\Api\LoginService" namespace="App\Services\Auth\Api">
+          <metrics complexity="7" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="20" elements="24" coveredelements="22"/>
+        </class>
+        <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="16" type="stmt" count="6"/>
+        <line num="24" type="method" name="login" visibility="public" complexity="5" crap="5.00" count="3"/>
+        <line num="26" type="stmt" count="3"/>
+        <line num="28" type="stmt" count="3"/>
+        <line num="29" type="stmt" count="1"/>
+        <line num="30" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="34" type="stmt" count="2"/>
+        <line num="35" type="stmt" count="2"/>
+        <line num="37" type="stmt" count="2"/>
+        <line num="38" type="stmt" count="0"/>
+        <line num="41" type="stmt" count="2"/>
+        <line num="43" type="stmt" count="2"/>
+        <line num="44" type="stmt" count="2"/>
+        <line num="45" type="stmt" count="2"/>
+        <line num="46" type="stmt" count="2"/>
+        <line num="47" type="stmt" count="2"/>
+        <line num="48" type="stmt" count="2"/>
+        <line num="49" type="stmt" count="2"/>
+        <line num="50" type="stmt" count="2"/>
+        <line num="56" type="method" name="logout" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="58" type="stmt" count="1"/>
+        <line num="60" type="stmt" count="1"/>
+        <metrics loc="63" ncloc="55" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="20" elements="24" coveredelements="22"/>
+      </file>
+      <file name="/var/www/html/app/Services/Auth/Api/SignupService.php">
+        <class name="App\Services\Auth\Api\SignupService" namespace="App\Services\Auth\Api">
+          <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="31" coveredelements="31"/>
+        </class>
+        <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="7"/>
+        <line num="16" type="stmt" count="7"/>
+        <line num="24" type="method" name="signup" visibility="public" complexity="2" crap="2" count="3"/>
+        <line num="27" type="stmt" count="3"/>
+        <line num="29" type="stmt" count="3"/>
+        <line num="30" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <line num="36" type="stmt" count="2"/>
+        <line num="37" type="stmt" count="2"/>
+        <line num="38" type="stmt" count="2"/>
+        <line num="39" type="stmt" count="2"/>
+        <line num="40" type="stmt" count="2"/>
+        <line num="43" type="stmt" count="2"/>
+        <line num="44" type="stmt" count="2"/>
+        <line num="45" type="stmt" count="2"/>
+        <line num="47" type="stmt" count="2"/>
+        <line num="48" type="stmt" count="2"/>
+        <line num="49" type="stmt" count="2"/>
+        <line num="50" type="stmt" count="2"/>
+        <line num="51" type="stmt" count="2"/>
+        <line num="52" type="stmt" count="2"/>
+        <line num="53" type="stmt" count="2"/>
+        <line num="54" type="stmt" count="2"/>
+        <line num="60" type="method" name="validateSignupData" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="62" type="stmt" count="1"/>
+        <line num="63" type="stmt" count="1"/>
+        <line num="64" type="stmt" count="1"/>
+        <line num="65" type="stmt" count="1"/>
+        <line num="66" type="stmt" count="1"/>
+        <line num="68" type="stmt" count="1"/>
+        <metrics loc="71" ncloc="60" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="31" coveredelements="31"/>
+      </file>
+    </package>
+    <package name="App\Traits">
+      <file name="/var/www/html/app/Traits/ApiResponseTrait.php">
+        <class name="App\Traits\ApiResponseTrait" namespace="App\Traits">
+          <metrics complexity="12" methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="41" elements="51" coveredelements="51"/>
+        </class>
+        <line num="16" type="method" name="successResponse" visibility="protected" complexity="2" crap="2" count="6"/>
+        <line num="18" type="stmt" count="6"/>
+        <line num="19" type="stmt" count="6"/>
+        <line num="20" type="stmt" count="6"/>
+        <line num="21" type="stmt" count="6"/>
+        <line num="23" type="stmt" count="6"/>
+        <line num="24" type="stmt" count="4"/>
+        <line num="27" type="stmt" count="6"/>
+        <line num="35" type="method" name="createdResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="37" type="stmt" count="1"/>
+        <line num="45" type="method" name="errorResponse" visibility="protected" complexity="2" crap="2" count="6"/>
+        <line num="47" type="stmt" count="6"/>
+        <line num="48" type="stmt" count="6"/>
+        <line num="49" type="stmt" count="6"/>
+        <line num="50" type="stmt" count="6"/>
+        <line num="52" type="stmt" count="6"/>
+        <line num="53" type="stmt" count="2"/>
+        <line num="56" type="stmt" count="6"/>
+        <line num="62" type="method" name="validationErrorResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="64" type="stmt" count="1"/>
+        <line num="65" type="stmt" count="1"/>
+        <line num="66" type="stmt" count="1"/>
+        <line num="67" type="stmt" count="1"/>
+        <line num="68" type="stmt" count="1"/>
+        <line num="74" type="method" name="notFoundResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="82" type="method" name="unauthorizedResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="84" type="stmt" count="1"/>
+        <line num="90" type="method" name="forbiddenResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="92" type="stmt" count="1"/>
+        <line num="98" type="method" name="serverErrorResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="100" type="stmt" count="1"/>
+        <line num="106" type="method" name="noContentResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="108" type="stmt" count="1"/>
+        <line num="109" type="stmt" count="1"/>
+        <line num="110" type="stmt" count="1"/>
+        <line num="111" type="stmt" count="1"/>
+        <line num="119" type="method" name="paginatedResponse" visibility="protected" complexity="1" crap="1" count="1"/>
+        <line num="121" type="stmt" count="1"/>
+        <line num="122" type="stmt" count="1"/>
+        <line num="123" type="stmt" count="1"/>
+        <line num="124" type="stmt" count="1"/>
+        <line num="125" type="stmt" count="1"/>
+        <line num="126" type="stmt" count="1"/>
+        <line num="127" type="stmt" count="1"/>
+        <line num="128" type="stmt" count="1"/>
+        <line num="129" type="stmt" count="1"/>
+        <line num="130" type="stmt" count="1"/>
+        <line num="131" type="stmt" count="1"/>
+        <line num="132" type="stmt" count="1"/>
+        <line num="133" type="stmt" count="1"/>
+        <metrics loc="136" ncloc="98" classes="1" methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="41" elements="51" coveredelements="51"/>
+      </file>
+    </package>
+    <metrics files="17" loc="1137" ncloc="911" classes="15" methods="49" coveredmethods="42" conditionals="0" coveredconditionals="0" statements="360" coveredstatements="290" elements="409" coveredelements="332"/>
   </project>
 </coverage>

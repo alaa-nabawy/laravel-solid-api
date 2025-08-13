@@ -82,9 +82,13 @@ seed: ## Run database seeders
 
 test: ## Run tests
 	docker compose -f compose.dev.yaml exec workspace php artisan test
+	@echo "🔄 Ensuring Passport setup is intact after tests..."
+	docker compose -f compose.dev.yaml exec workspace ./scripts/setup-passport.sh
 
 test-coverage: ## Run tests with coverage
 	docker compose -f compose.dev.yaml exec workspace php artisan test --coverage
+	@echo "🔄 Ensuring Passport setup is intact after tests..."
+	docker compose -f compose.dev.yaml exec workspace ./scripts/setup-passport.sh
 
 # Frontend Commands
 npm: ## Run npm command (usage: make npm cmd="install")

@@ -62,29 +62,13 @@ fi
 # Step 5: Create OAuth clients if they don't exist
 echo "👥 Setting up OAuth clients..."
 
-# Check if oauth_clients table exists and has records
-if run_artisan tinker --execute="try { echo \Laravel\Passport\Client::count(); } catch (Exception \$e) { echo '0'; }" 2>/dev/null | grep -q "^[1-9]"; then
-    echo "✅ OAuth clients already exist"
+# Check if personal access client exists for users provider
+if run_artisan tinker --execute="try { echo \Laravel\Passport\Client::where('personal_access_client', 1)->count(); } catch (Exception \$e) { echo '0'; }" 2>/dev/null | grep -q "^[1-9]"; then
+    echo "✅ Personal access client already exists"
 else
-    echo "🔑 Creating OAuth clients manually..."
-    # Create clients using tinker to avoid migration publishing
-    run_artisan tinker --execute="
-        \Laravel\Passport\Client::create([
-            'name' => 'Laravel Personal Access Client',
-            'secret' => null,
-            'redirect_uris' => 'http://localhost',
-            'grant_types' => 'personal_access',
-            'revoked' => false,
-        ]);
-        \Laravel\Passport\Client::create([
-            'name' => 'Laravel Password Grant Client',
-            'secret' => \Illuminate\Support\Str::random(40),
-            'redirect_uris' => 'http://localhost',
-            'grant_types' => 'password',
-            'revoked' => false,
-        ]);
-        echo 'OAuth clients created successfully';
-    " 2>/dev/null || echo "ℹ️  Client creation completed (may already exist)"
+    echo "🔑 Creating personal access client for users provider..."
+    # Create personal access client without publishing migrations again
+    run_artisan passport:client --personal --name="Laravel Personal Access Client"
 fi
 
 echo "🎉 Laravel Passport setup completed successfully!"

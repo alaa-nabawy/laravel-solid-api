@@ -98,6 +98,10 @@ run_tests_with_coverage() {
 
     # Run tests with coverage
     docker compose -f compose.dev.yaml exec workspace php artisan test --coverage --min=2
+
+    # Ensure Passport setup is intact after tests
+    echo "🔄 Ensuring Passport setup is intact after tests..."
+    docker compose -f compose.dev.yaml exec workspace ./scripts/setup-passport.sh
 }
 
 # Function to run security audit
