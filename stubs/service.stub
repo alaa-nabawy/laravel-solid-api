@@ -10,6 +10,6 @@ class {{className}}Service
 
     public function {{lowerMethod}}(array $data)
     {
-        // Your {{lowerMethod}} logic goes here
+        // {{method}} service methods
     }
 }

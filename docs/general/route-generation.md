@@ -338,7 +338,6 @@ Route::get('/', function () {
 
 // Add your admin routes here
 Route::apiResource('posts', PostController::class);
-Route::apiResource('users', UserController::class);
 ```
 
 ## 🛠️ Customization

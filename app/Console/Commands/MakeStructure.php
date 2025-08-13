@@ -95,9 +95,12 @@ class MakeStructure extends Command
         $servicePath = app_path('Services/' . $service . '.php');
 
         if (! file_exists($servicePath)) {
+            // Extract model name from service name (remove 'Service' suffix)
+            $modelName = str_replace('Service', '', $service);
+
             $serviceTemplate = str_replace(
-                ['{{ServiceName}}', '{{RepositoryName}}', '{{repositoryName}}'],
-                [$service, $repository, lcfirst($repository)],
+                ['{{model}}', '{{className}}', '{{method}}', '{{lowerMethod}}', '{{lowerModel}}'],
+                [$modelName, $service, 'Handle', 'handle', strtolower($modelName)],
                 file_get_contents(base_path('stubs/service.stub'))
             );
 
@@ -114,8 +117,8 @@ class MakeStructure extends Command
 
         if (! file_exists($repositoryPath)) {
             $repositoryTemplate = str_replace(
-                ['{{RepositoryName}}', '{{MainModelClass}}'],
-                [$repository, $mainModel],
+                ['{{model}}'],
+                [$mainModel],
                 file_get_contents($stubPath)
             );
 
