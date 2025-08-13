@@ -12,9 +12,14 @@ class MakeRouteGroupTest extends TestCase
 {
     use RefreshDatabase;
 
+    private string $originalBootstrapContent;
+
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Backup original bootstrap/app.php content
+        $this->originalBootstrapContent = File::get(base_path('bootstrap/app.php'));
 
         // Clean up any test files
         $this->cleanupTestFiles();
@@ -23,6 +28,10 @@ class MakeRouteGroupTest extends TestCase
     protected function tearDown(): void
     {
         $this->cleanupTestFiles();
+
+        // Restore original bootstrap/app.php content
+        File::put(base_path('bootstrap/app.php'), $this->originalBootstrapContent);
+
         parent::tearDown();
     }
 
