@@ -13,6 +13,7 @@ Welcome to the Laravel API SOLID documentation. This directory contains comprehe
 - [Code Quality Tools](./general/code-quality-tools.md) - Comprehensive guide to code quality scripts and tools
 - [Pre-commit Setup](./general/pre-commit-setup.md) - Pre-commit hooks configuration and usage
 - [Rate Limiting](./general/rate-limiting.md) - Comprehensive rate limiting system with role-based controls
+- [Testing Roadmap](./general/testing-roadmap.md) - Comprehensive testing strategy, implementation guidelines, and enforcement mechanisms
 
 ### API Documentation
 
