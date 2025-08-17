@@ -387,6 +387,7 @@ make update-pre-commit
     ```
 
 4. **Mock External Dependencies**
+
     ```php
     public function test_user_creation_with_mocked_email_service()
     {
