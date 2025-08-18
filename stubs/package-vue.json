@@ -5,6 +5,7 @@
     "scripts": {
         "lint": "eslint resources/js --ext .js,.vue --fix",
         "lint:check": "eslint resources/js --ext .js,.vue",
+        "prettier:check": "prettier --check .",
         "build": "vite build",
         "dev": "vite",
         "test": "vitest",
@@ -30,6 +31,7 @@
         "eslint": "^8.57.0",
         "eslint-plugin-vue": "^9.20.0",
         "happy-dom": "^12.10.0",
+        "prettier": "^3.0.0",
         "jsdom": "^23.0.0",
         "laravel-vite-plugin": "^2.0.0",
         "tailwindcss": "^4.0.0",
