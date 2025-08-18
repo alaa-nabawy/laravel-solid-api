@@ -366,7 +366,7 @@ axios.interceptors.response.use(
 
 ## Testing
 
-The authentication system includes comprehensive tests:
+The authentication system includes comprehensive tests covering all components:
 
 ### Feature Tests
 
@@ -380,6 +380,7 @@ The authentication system includes comprehensive tests:
 - **SignupServiceTest**: Registration business logic
 - **Request Tests**: Validation rule testing
 - **Resource Tests**: API response formatting
+- **ApiResponseTraitTest**: Response formatting validation
 
 ### Running Tests
 
@@ -394,6 +395,10 @@ php artisan test tests/Unit/LoginServiceTest.php
 # Run with coverage
 php artisan test --coverage
 ```
+
+**[📖 Complete Testing Documentation](../Testing.md)**
+
+For detailed information about test architecture, coverage matrix, mocking strategies, and troubleshooting, see the comprehensive testing documentation.
 
 ## Configuration
 
