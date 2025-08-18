@@ -20,6 +20,7 @@ Laravel API SOLID Boilerplate is a production-ready starter kit for secure, scal
 - [Code Quality & Pre-commit Hooks](#code-quality--pre-commit-hooks)
 - [Docker Environment](#docker-environment)
 - [Authentication](#authentication)
+- [Frontend Integration](#frontend-integration)
 - [Documentation](#documentation)
 - [Version History](#version-history)
 
@@ -231,17 +232,89 @@ make passport-client
 
 **📖 [Passport Setup Guide](./docs/general/passport-setup.md)**
 
+## Frontend Integration
+
+Modern frontend development with Vue.js or React, featuring Inertia.js for seamless full-stack integration.
+
+### Quick Setup
+
+```bash
+# Setup Vue 3 with Inertia.js
+make setup-vue
+
+# Setup React 18 with Inertia.js
+make setup-react
+
+# Start development environment
+make dev
+```
+
+### Framework Options
+
+**Vue.js 3 Stack:**
+
+- Vue 3 with Composition API
+- Pinia for state management
+- Vue Router for client-side routing
+- Vitest for testing
+
+**React 18 Stack:**
+
+- React 18 with hooks
+- Redux Toolkit for state management
+- React Router for client-side routing
+- Jest for testing
+
+**Shared Technologies:**
+
+- Inertia.js for server-side routing
+- Vite for fast development and building
+- Tailwind CSS for styling
+- TypeScript support
+- Headless UI components
+- Docker integration
+
+### Development Workflow
+
+```bash
+# Access workspace for frontend development
+make shell
+
+# Inside workspace:
+npm run dev     # Start Vite dev server with HMR
+npm run build   # Build for production
+npm run test    # Run component tests
+npm run lint    # Lint and format code
+npm run type-check  # TypeScript checking
+```
+
+**📖 [Complete Frontend Documentation](./docs/frontend/README.md)** - Comprehensive guides for Vue.js, React, setup, deployment, and advanced configuration
+
 ## Documentation
 
 Comprehensive guides available in the `docs/` directory:
 
+### Backend & Architecture
+
 - **[Architecture Guide](./docs/general/architecture.md)** - SOLID principles and project structure
 - **[Service Repository Pattern](./docs/general/service-repository-pattern.md)** - Implementation details
 - **[Route Generation](./docs/general/route-generation.md)** - CRUD command reference
+- **[Passport Setup](./docs/general/passport-setup.md)** - OAuth2 authentication
+
+### Frontend Development
+
+- **[Frontend Documentation](./docs/frontend/README.md)** - Complete frontend development guide
+- **[Vue.js Setup](./docs/frontend/vue-setup.md)** - Vue 3 + Inertia.js integration
+- **[React Setup](./docs/frontend/react-setup.md)** - React 18 + Inertia.js integration
+- **[Switching Frameworks](./docs/frontend/switching-frameworks.md)** - Migration between Vue and React
+- **[Advanced Configuration](./docs/frontend/advanced-configuration.md)** - Vite, Docker, and optimization
+- **[Deployment Guide](./docs/frontend/deployment.md)** - Production deployment strategies
+
+### DevOps & Quality
+
 - **[DevOps Guide](./docs/general/devops.md)** - Docker and deployment
 - **[Code Quality Tools](./docs/general/code-quality-tools.md)** - Quality automation
 - **[Pre-commit Setup](./docs/general/pre-commit-setup.md)** - Hook configuration
-- **[Passport Setup](./docs/general/passport-setup.md)** - OAuth2 authentication
 
 **📖 [Documentation Index](./docs/README.md)**
 
