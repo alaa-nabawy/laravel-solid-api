@@ -12,6 +12,7 @@ Welcome to the Laravel API SOLID documentation. This directory contains comprehe
 - [Route Generation](./general/route-generation.md) - Complete guide to the enhanced route generation commands
 - [Code Quality Tools](./general/code-quality-tools.md) - Comprehensive guide to code quality scripts and tools
 - [Pre-commit Setup](./general/pre-commit-setup.md) - Pre-commit hooks configuration and usage
+- [Vue.js Setup](./general/vue-setup.md) - Complete guide to Vue 3 + Inertia.js setup and development
 - [Rate Limiting](./general/rate-limiting.md) - Comprehensive rate limiting system with role-based controls
 - [Testing Roadmap](./general/testing-roadmap.md) - Comprehensive testing strategy, implementation guidelines, and enforcement mechanisms
 
