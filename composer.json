@@ -11,10 +11,12 @@
     "require": {
         "php": "^8.2",
         "dedoc/scramble": "^0.12.28",
+        "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/passport": "^13.0",
         "laravel/tinker": "^2.10.1",
-        "prettus/l5-repository": "^2.10"
+        "prettus/l5-repository": "^2.10",
+        "tightenco/ziggy": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.5",

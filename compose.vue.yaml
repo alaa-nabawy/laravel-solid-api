@@ -1,0 +1,32 @@
+# Docker Compose override for Vue.js development
+# This file is automatically included when Vue is detected in the project
+
+services:
+  # Vite development server for Vue.js
+  vite:
+    build:
+      context: .
+      dockerfile: docker/dev/workspace.Dockerfile
+    container_name: laravel-vite-dev
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html:cached
+      - workspace_npm_cache:/home/sail/.npm
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "5173:5173"
+    command: npm run dev
+    depends_on:
+      - workspace
+    networks:
+      - laravel-network
+    tty: true
+    stdin_open: true
+
+  # Override workspace to ensure it stays running for Vite
+  workspace:
+    tty: true
+    stdin_open: true
+# Volumes and networks are inherited from compose.dev.yaml

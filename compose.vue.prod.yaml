@@ -1,0 +1,25 @@
+# Docker Compose override for Vue.js production
+# This file is automatically included when Vue is detected in production builds
+
+services:
+  # Build Vue assets during production setup
+  vue-builder:
+    build:
+      context: .
+      dockerfile: docker/dev/workspace.Dockerfile
+    container_name: laravel-vue-builder
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html:cached
+      - workspace_npm_cache:/home/sail/.npm
+    environment:
+      - NODE_ENV=production
+    command: >
+      sh -c "npm ci --only=production &&
+             npm run build &&
+             echo 'Vue assets built successfully'"
+    networks:
+      - laravel-network
+    profiles:
+      - build
+# Volumes and networks are inherited from compose.prod.yaml

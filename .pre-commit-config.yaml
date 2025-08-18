@@ -63,13 +63,13 @@ repos:
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: check-added-large-files
-        args: ['--maxkb=1000']
+        args: ["--maxkb=1000"]
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
 
       # Prevent commits to main/master
       - id: no-commit-to-branch
-        args: ['--branch', 'main', '--branch', 'master']
+        args: ["--branch", "main", "--branch", "master"]
 
   # Docker and Infrastructure
   - repo: https://github.com/hadolint/hadolint
@@ -85,7 +85,7 @@ repos:
       # ESLint for JavaScript
       - id: eslint
         name: ESLint (JavaScript Linter)
-        entry: docker compose -f compose.dev.yaml exec -T workspace npm run lint
+        entry: docker compose -f compose.dev.yaml exec -T workspace npm run lint:check
         language: system
         files: \.(js|ts|vue)$
         pass_filenames: false
@@ -97,9 +97,10 @@ repos:
       # Prettier for code formatting
       - id: prettier
         name: Prettier (Code Formatter)
-        entry: docker compose -f compose.dev.yaml exec -T workspace npx prettier --write
+        entry: docker compose -f compose.dev.yaml exec -T workspace npx prettier --check .
         language: system
         files: \.(js|ts|vue|css|scss|json|md)$
+        pass_filenames: false
         stages: [pre-commit]
         verbose: true
 
@@ -109,7 +110,7 @@ repos:
     hooks:
       - id: detect-secrets
         name: Detect Secrets
-        args: ['--baseline', '.secrets.baseline']
+        args: ["--baseline", ".secrets.baseline"]
         exclude: package-lock\.json$
 
   # Documentation (disabled)
@@ -124,7 +125,7 @@ repos:
 # Global configuration
 default_stages: [pre-commit]
 fail_fast: false
-minimum_pre_commit_version: '3.0.0'
+minimum_pre_commit_version: "3.0.0"
 
 # CI configuration
 ci:
@@ -133,8 +134,8 @@ ci:
 
     for more information, see https://pre-commit.ci
   autofix_prs: true
-  autoupdate_branch: ''
-  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_branch: ""
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
   autoupdate_schedule: weekly
   skip: []
   submodules: false

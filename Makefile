@@ -11,14 +11,37 @@ help: ## Show this help message
 dev: ## Start development environment
 	@echo "Starting development environment..."
 	@cp .env.dev .env 2>/dev/null || true
-	docker compose -f compose.dev.yaml up -d
-	@echo "Development environment started at http://localhost:8000"
-	@echo "MailHog available at http://localhost:8025"
+	@if [ -f "resources/js/app.js" ] && grep -q "@inertiajs/vue3" package.json 2>/dev/null; then \
+		echo "🎨 Vue.js detected - starting with Vite dev server..."; \
+		docker compose -f compose.dev.yaml -f compose.vue.yaml up -d; \
+		echo "🔑 Generating application key..."; \
+		docker compose -f compose.dev.yaml exec workspace php artisan key:generate --force 2>/dev/null || true; \
+		echo "Development environment started at http://localhost:8000"; \
+		echo "Vite dev server available at http://localhost:5173"; \
+		echo "MailHog available at http://localhost:8025"; \
+	else \
+		echo "📦 Starting standard Laravel environment..."; \
+		docker compose -f compose.dev.yaml up -d; \
+		echo "🔑 Generating application key..."; \
+		docker compose -f compose.dev.yaml exec workspace php artisan key:generate --force 2>/dev/null || true; \
+		echo "Development environment started at http://localhost:8000"; \
+		echo "MailHog available at http://localhost:8025"; \
+	fi
 
 dev-build: ## Build and start development environment
 	@echo "Building and starting development environment..."
 	@cp .env.dev .env 2>/dev/null || true
-	docker compose -f compose.dev.yaml up -d --build
+	@if [ -f "resources/js/app.js" ] && grep -q "@inertiajs/vue3" package.json 2>/dev/null; then \
+		echo "🎨 Vue.js detected - building with Vite dev server..."; \
+		docker compose -f compose.dev.yaml -f compose.vue.yaml up -d --build; \
+		echo "🔑 Generating application key..."; \
+		docker compose -f compose.dev.yaml exec workspace php artisan key:generate --force 2>/dev/null || true; \
+	else \
+		echo "📦 Building standard Laravel environment..."; \
+		docker compose -f compose.dev.yaml up -d --build; \
+		echo "🔑 Generating application key..."; \
+		docker compose -f compose.dev.yaml exec workspace php artisan key:generate --force 2>/dev/null || true; \
+	fi
 
 dev-logs: ## Show development logs
 	docker compose -f compose.dev.yaml logs -f
@@ -27,24 +50,45 @@ dev-logs: ## Show development logs
 prod: ## Start production environment
 	@echo "Starting production environment..."
 	@if [ ! -f .env ]; then echo "Error: .env file not found. Copy .env.prod and configure it."; exit 1; fi
-	docker compose -f compose.prod.yaml up -d
-	@echo "Production environment started"
+	@if [ -f "resources/js/app.js" ] && grep -q "@inertiajs/vue3" package.json 2>/dev/null; then \
+		echo "🎨 Vue.js detected - building assets for production..."; \
+		docker compose -f compose.prod.yaml -f compose.vue.prod.yaml --profile build run --rm vue-builder; \
+		docker compose -f compose.prod.yaml up -d; \
+		echo "Production environment started with Vue assets"; \
+	else \
+		echo "📦 Starting standard production environment..."; \
+		docker compose -f compose.prod.yaml up -d; \
+		echo "Production environment started"; \
+	fi
 
 prod-build: ## Build and start production environment
 	@echo "Building and starting production environment..."
 	@if [ ! -f .env ]; then echo "Error: .env file not found. Copy .env.prod and configure it."; exit 1; fi
-	docker compose -f compose.prod.yaml up -d --build
+	@if [ -f "resources/js/app.js" ] && grep -q "@inertiajs/vue3" package.json 2>/dev/null; then \
+		echo "🎨 Vue.js detected - building with assets..."; \
+		docker compose -f compose.prod.yaml -f compose.vue.prod.yaml up -d --build; \
+		docker compose -f compose.prod.yaml -f compose.vue.prod.yaml --profile build run --rm vue-builder; \
+		echo "Production environment built with Vue assets"; \
+	else \
+		echo "📦 Building standard production environment..."; \
+		docker compose -f compose.prod.yaml up -d --build; \
+		echo "Production environment built"; \
+	fi
 
 prod-logs: ## Show production logs
 	docker compose -f compose.prod.yaml logs -f
 
 # General Commands
 down: ## Stop all containers
+	docker compose -f compose.dev.yaml -f compose.vue.yaml down 2>/dev/null || true
 	docker compose -f compose.dev.yaml down 2>/dev/null || true
+	docker compose -f compose.prod.yaml -f compose.vue.prod.yaml down 2>/dev/null || true
 	docker compose -f compose.prod.yaml down 2>/dev/null || true
 
 clean: ## Stop containers and remove volumes
+	docker compose -f compose.dev.yaml -f compose.vue.yaml down -v 2>/dev/null || true
 	docker compose -f compose.dev.yaml down -v 2>/dev/null || true
+	docker compose -f compose.prod.yaml -f compose.vue.prod.yaml down -v 2>/dev/null || true
 	docker compose -f compose.prod.yaml down -v 2>/dev/null || true
 	docker system prune -f
 
@@ -103,7 +147,28 @@ npm-install: ## Install npm dependencies
 	docker compose -f compose.dev.yaml exec workspace sh -c "sudo chown -R sail:sail /home/sail/.npm 2>/dev/null || true && npm install"
 
 npm-dev: ## Run Vite development server
-	docker compose -f compose.dev.yaml exec workspace npm run dev
+	@if [ -f "resources/js/app.js" ] && grep -q "@inertiajs/vue3" package.json 2>/dev/null; then \
+		echo "🎨 Starting Vite dev server for Vue..."; \
+		docker compose -f compose.dev.yaml -f compose.vue.yaml up -d vite; \
+	else \
+		echo "⚠️  Vue.js not detected. Run 'make setup-vue' first."; \
+		docker compose -f compose.dev.yaml exec workspace npm run dev; \
+	fi
+
+vite-dev: ## Start dedicated Vite development server (Vue only)
+	@if [ -f "resources/js/app.js" ] && grep -q "@inertiajs/vue3" package.json 2>/dev/null; then \
+		echo "🎨 Starting dedicated Vite dev server..."; \
+		docker compose -f compose.dev.yaml -f compose.vue.yaml up vite; \
+	else \
+		echo "❌ Vue.js not detected. Please run 'make setup-vue' first."; \
+		exit 1; \
+	fi
+
+vite-stop: ## Stop Vite development server
+	docker compose -f compose.dev.yaml -f compose.vue.yaml stop vite
+
+vite-logs: ## Show Vite development server logs
+	docker compose -f compose.dev.yaml -f compose.vue.yaml logs -f vite
 
 npm-build: ## Build assets for production
 	docker compose -f compose.dev.yaml exec workspace npm run build
@@ -166,6 +231,20 @@ setup: ## Initial setup for development
 	make setup-pre-commit
 	@echo "Setup complete! Visit http://localhost:8000"
 	@echo "Pre-commit hooks are now active for code quality checks."
+
+setup-vue: ## Setup Vue 3 + Inertia.js for Laravel
+	@echo "Setting up Vue 3 + Inertia.js integration..."
+	@if ! docker compose -f compose.dev.yaml ps -q workspace > /dev/null 2>&1; then \
+		echo "Error: Development environment not running. Please run 'make dev' first."; \
+		exit 1; \
+	fi
+	docker compose -f compose.dev.yaml exec workspace ./scripts/setup-vue.sh
+	@echo "Vue 3 + Inertia.js setup complete!"
+	@echo "Next: Update your configuration files and create Vue components."
+
+setup-react: ## Setup React + Inertia.js for Laravel
+	@echo "Setting up React + Inertia.js integration..."
+	@./scripts/setup-react.sh
 
 setup-prod: ## Initial setup for production
 	@echo "Setting up Laravel production environment..."
@@ -238,6 +317,10 @@ pre-commit-run-staged: ## Run pre-commit on staged files
 status: ## Show container status
 	@echo "Development containers:"
 	docker compose -f compose.dev.yaml ps 2>/dev/null || echo "Development environment not running"
+	@if [ -f "resources/js/app.js" ] && grep -q "@inertiajs/vue3" package.json 2>/dev/null; then \
+		echo "\nVue/Vite containers:"; \
+		docker compose -f compose.dev.yaml -f compose.vue.yaml ps 2>/dev/null || echo "Vue development not running"; \
+	fi
 	@echo "\nProduction containers:"
 	docker compose -f compose.prod.yaml ps 2>/dev/null || echo "Production environment not running"
 

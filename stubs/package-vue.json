@@ -5,7 +5,6 @@
     "scripts": {
         "lint": "eslint resources/js --ext .js,.vue --fix",
         "lint:check": "eslint resources/js --ext .js,.vue",
-        "prettier:check": "prettier --check .",
         "build": "vite build",
         "dev": "vite",
         "test": "vitest",

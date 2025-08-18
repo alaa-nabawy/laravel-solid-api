@@ -1,22 +1,17 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
-import vue from "@vitejs/plugin-vue";
+import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { resolve } from "path";
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: ["resources/css/app.css", "resources/js/app.js"],
+            input: ["resources/css/app.css", "resources/js/app.jsx"],
             refresh: true,
         }),
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false,
-                },
-            },
+        react({
+            jsxRuntime: "automatic",
         }),
         tailwindcss(),
     ],
@@ -26,13 +21,9 @@ export default defineConfig({
             "@components": resolve(__dirname, "resources/js/Components"),
             "@layouts": resolve(__dirname, "resources/js/Layouts"),
             "@pages": resolve(__dirname, "resources/js/Pages"),
-            "@stores": resolve(__dirname, "resources/js/Stores"),
-            "@composables": resolve(__dirname, "resources/js/Composables"),
+            "@hooks": resolve(__dirname, "resources/js/Hooks"),
+            "@lib": resolve(__dirname, "resources/js/lib"),
         },
-    },
-    define: {
-        __VUE_OPTIONS_API__: true,
-        __VUE_PROD_DEVTOOLS__: false,
     },
     server: {
         host: "0.0.0.0",
@@ -44,6 +35,6 @@ export default defineConfig({
     test: {
         globals: true,
         environment: "happy-dom",
-        setupFiles: ["tests/Vue/setup.js"],
+        setupFiles: ["tests/React/setup.js"],
     },
 });
