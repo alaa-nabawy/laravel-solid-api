@@ -40,6 +40,10 @@ export default defineConfig({
         hmr: {
             host: "0.0.0.0",
         },
+        cors: {
+            origin: true,
+            credentials: true,
+        },
     },
     test: {
         globals: true,
