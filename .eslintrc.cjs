@@ -20,5 +20,5 @@ module.exports = {
         "vue/multi-word-component-names": "off",
         "vue/no-unused-vars": "error",
     },
-    ignorePatterns: ["dist", ".eslintrc.js"],
+    ignorePatterns: ["dist", ".eslintrc.cjs"],
 };
