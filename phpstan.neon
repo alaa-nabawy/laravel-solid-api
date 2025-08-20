@@ -1,0 +1,45 @@
+parameters:
+    level: 6
+    paths:
+        - app
+        - config
+        - database
+        - routes
+    excludePaths:
+        - app/Console/Kernel.php (?)
+        - app/Http/Kernel.php (?)
+        - app/Exceptions/Handler.php (?)
+        - bootstrap
+        - storage
+        - vendor
+    ignoreErrors:
+        - '#Unsafe usage of new static#'
+        - '#Cannot call method [a-zA-Z0-9\\]+\(\) on mixed#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder#'
+
+    reportUnmatchedIgnoredErrors: false
+
+    # Laravel specific configurations
+    bootstrapFiles:
+        - bootstrap/app.php
+
+    # Custom rules (Larastan not installed)
+    # rules:
+    #     - NunoMaduro\Larastan\Rules\NoModelMakeRule
+    #     - NunoMaduro\Larastan\Rules\NoUnnecessaryCollectionCallRule
+    #     - NunoMaduro\Larastan\Rules\ModelPropertyRule
+    #     - NunoMaduro\Larastan\Rules\NoUselessWithRule
+
+    # Type coverage
+    typeAliases:
+        UserId: 'int<1, max>'
+        Email: 'non-empty-string'
+
+    # Stub files for better analysis
+    # stubFiles:
+    #     - stubs/User.stub
+
+
+
+# includes:
+    # - vendor/nunomaduro/larastan/extension.neon
