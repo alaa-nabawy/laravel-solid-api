@@ -24,8 +24,8 @@
                     </div>
                     <div class="flex items-center space-x-4">
                         <button
-                            class="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                             @click="toggleTheme"
+                            class="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                         >
                             <span class="text-xl">{{
                                 isDark ? "☀️" : "🌙"
@@ -55,7 +55,7 @@
         <section class="relative overflow-hidden py-20 sm:py-32">
             <div
                 class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10"
-            />
+            ></div>
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
                     <div
@@ -99,13 +99,13 @@
                                         stroke-linejoin="round"
                                         stroke-width="2"
                                         d="M13 7l5 5m0 0l-5 5m5-5H6"
-                                    />
+                                    ></path>
                                 </svg>
                             </span>
                         </a>
                         <button
-                            class="px-8 py-4 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-200"
                             @click="incrementCounter"
+                            class="px-8 py-4 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-200"
                         >
                             Interactive Demo ({{ counter }})
                         </button>
@@ -399,9 +399,9 @@
                                 Health Check
                             </h4>
                             <button
+                                @click="testHealthEndpoint"
                                 :disabled="loading.health"
                                 class="w-full px-6 py-3 bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white rounded-xl font-semibold transition-colors duration-200"
-                                @click="testHealthEndpoint"
                             >
                                 {{
                                     loading.health
@@ -430,9 +430,9 @@
                                 Public Info
                             </h4>
                             <button
+                                @click="testPublicEndpoint"
                                 :disabled="loading.public"
                                 class="w-full px-6 py-3 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-xl font-semibold transition-colors duration-200"
-                                @click="testPublicEndpoint"
                             >
                                 {{
                                     loading.public
